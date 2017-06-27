@@ -2,34 +2,84 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {observable, action} from 'mobx';
+import {observable, autorun} from 'mobx';
 import {observer} from 'mobx-react';
 
-var appState = observable({
-      timer: 0
-});
+class TodoStore{
+  @observable todos = [];
+
+  constructor(){
+     autorun(() => console.log(this.report));
+  }
+
+  get completedTodosCount() {
+    return this.todos.filter(
+      todo => todo.completed === true
+    ).length;
+  }
+
+  get report() {
+    if (this.todos.length === 0)
+      return "<none>";
+    return `Next todo: "${this.todos[0].task}". ` +
+      `Progress: ${this.completedTodosCount}/${this.todos.length}`;
+  }
+
+  addTodo(task) {
+    this.todos.push({
+      task: task,
+      completed: false,
+      assignee: null
+    });
+  }
+
+  deleteTodo(index){
+    this.todos.splice(index, 1)
+  }
+}
+const todoStore = new TodoStore();
 
 
-appState.resetTimer = action(function reset() {
-    appState.timer = 0;
-});
+/* ..and some actions that modify the state */
+todoStore.todos[0] = {
+    task: "Take a walk",
+    completed: false
+};
+// -> synchronously prints 'Completed 0 of 1 items'
 
-setInterval(action(function tick() {
-    appState.timer += 1;
-}), 1000)
+todoStore.todos[0].completed = true;
+// -> synchronously prints 'Completed 1 of 1 items'
 
 
 @observer
-class TimerView extends React.Component {
-    render() {
-        return (<button onClick={this.onReset.bind(this)}>
-                Seconds passed: {this.props.appState.timer}
-            </button>);
+class Todos extends React.Component {
+  handleKeyPress(evt){
+    const todoStore = this.props.todoStore
+    if (evt.key === "Enter"){
+      todoStore.addTodo(evt.target.value)
+      evt.target.value = ''
     }
+  }
+  render() {
+    const {todos} = this.props.todoStore
+    const todoLis = todos.map((i, index)=>{
+      return <li key={index}>
+        {i.task} 
+        <button onClick={()=>{this.props.todoStore.deleteTodo(index)}}>x</button></li>
+    })
 
-    onReset () {
-        this.props.appState.resetTimer();
-    }
+    return (<p>
+      <ul>
+        {todoLis}
+      </ul>
+      <input onKeyUp={this.handleKeyPress.bind(this)}/>
+    </p>
+    );
+  }
+
+  onReset () {
+      this.props.appState.resetTimer();
+  }
 };
 
 
@@ -45,7 +95,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <TimerView appState={appState}/>
+        <Todos todoStore={todoStore}/>
       </div>
     );
   }
