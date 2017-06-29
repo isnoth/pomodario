@@ -2,18 +2,20 @@ import {observable } from 'mobx';
 import {todoStore} from './store';
 import {Fb} from './firebase';
 
-//wilddog.auth().signInWithEmailAndPassword(123, 123)
-
 class auth{
   @observable authState = null;
   @observable userRef = null;
 
   constructor(){
+    this.listerningAuthState()
+  }
+
+  listerningAuthState(){
     Fb.Wilddog.auth().onAuthStateChanged((state)=>{
       console.log('onAuthStateChanged', state)
       this.authState = state
       if(state){
-        //update ref
+        //update profile/ref
         this.userRef = Fb.root.child('notes/users/'+state.uid)
         todoStore.startListernining()
       }
