@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {todoStore} from './store/store'
+import {todoStore, authStore} from './store/store'
+
+import {Login } from './components/login'
 
 //import {observable, autorun} from 'mobx';
 import {observer} from 'mobx-react';
@@ -9,19 +11,26 @@ import {observer} from 'mobx-react';
 @observer
 class Todos extends React.Component {
   handleKeyPress(evt){
-    const todoStore = this.props
+    const { todoStore }  = this.props
     if (evt.key === "Enter"){
-      todoStore.addTodo(evt.target.value)
+      console.log(todoStore)
+      todoStore.add(evt.target.value)
       evt.target.value = ''
     }
   }
+
+  handDelete( key ){
+    const { todoStore }  = this.props
+    todoStore.del(key)
+  }
+
   render() {
     const {todoStore} = this.props
 
     const data = todoStore.json
     const todoLis = Object.keys(data).map((key, index)=>{
-      return <li key={key}>
-        {`${data[key].humi} - ${data[key].temp}`}
+      return <li key={key} onClick={this.handDelete.bind(this, key)}>
+        {`${data[key].content} - ${data[key].temp}`}
       </li>
     })
 
@@ -41,6 +50,11 @@ class Todos extends React.Component {
 
 
 
+
+
+
+
+
 class App extends Component {
   render() {
     return (
@@ -53,6 +67,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <Todos todoStore={todoStore}/>
+        <Login authStore={authStore}/>
       </div>
     );
   }
