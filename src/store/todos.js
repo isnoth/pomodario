@@ -3,18 +3,36 @@ import {Fb} from './firebase';
 import {authStore} from './store';
 const { map }  =  observable;
 
+const checkOngoingPomodario = (list)=>{
+  console.log('checkOngoingPomodario:', list)
+
+  let data = list.filter(i=>{
+    return  (Date.now() > i.start.getTime()) &&(Date.now() < i.end.getTime())
+  })
+  console.log('filtered items', data)
+  return data.length>0? data[0]:null
+}
+
+
 class todos{
   @observable todos = map({});
 
-  constructor() {
-    //Fb.todos.on('value', (snapshot) => {
-    //  let val = snapshot.val()
-    //  this.todos = val;
-    //});
-  }
-
   @computed get json() {
     return toJS(this.todos)
+  }
+
+  //onGoing pomodario
+  @computed get onGoing() {
+    const value = toJS(this.todos)
+    const items = Object.keys(value).map( function(i){
+      const start = new Date(value[i].startTime)
+      const end = new Date(value[i].endTime)
+      const styleClass = value[i].type==="home" ? "orange":"green"
+      return ({id: i, content: value[i].content, start:start, end: end , className: styleClass  })
+    })
+
+    return checkOngoingPomodario(items)
+
   }
 
   startListernining(){
