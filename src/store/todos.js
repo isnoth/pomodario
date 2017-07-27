@@ -1,18 +1,18 @@
 import {observable, computed, toJS} from 'mobx';
 import {Fb} from './firebase';
 import {authStore} from './store';
+import  {fetchAllFromRef} from '../utils/firebase'
 const { map }  =  observable;
 
 const checkOngoingPomodario = (list)=>{
-  console.log('checkOngoingPomodario:', list)
+  //console.log('checkOngoingPomodario:', list)
 
   let data = list.filter(i=>{
     return  (Date.now() > i.start.getTime()) &&(Date.now() < i.end.getTime())
   })
-  console.log('filtered items', data)
+  //console.log('filtered items', data)
   return data.length>0? data[0]:null
 }
-
 
 class todos{
   @observable todos = map({});
@@ -32,29 +32,27 @@ class todos{
     })
 
     return checkOngoingPomodario(items)
-
   }
 
-  startListernining(){
-    authStore.userRef.child('pomodarios').on('value', (snapshot) => {
-      let val = snapshot.val()
-      this.todos = val;
-    });
+  fetchAllPomodarios(){
+    fetchAllFromRef(100, authStore.userRef.child('pomodarios'))
+    .then(pomodarios=>{
+      this.todos.replace(pomodarios)
+    })
   }
 
-  add = (name) => {
-    //Fb.todos.push({content: name})
-    authStore.userRef.child('pomodarios').push({content: name})
-    //console.log(id)
-    //this.update(id, name);
-  };
+  add ({key, value}){
+    authStore.userRef.child('pomodarios').child('key').set({content: value})
+    this.todos.set(key, {content: value})
+  }
 
-  update = (id, name) => {
+  _update (id, name){
     Fb.todos.update({[id]: {name}})
   };
 
-  del = (id) => {
-    authStore.userRef.child('pomodarios').child(id).remove();
+  del (id){
+    this.todos.delete(id)
+    authStore.userRef.child('pomodarios').child(id).remove()
   };
 }
 

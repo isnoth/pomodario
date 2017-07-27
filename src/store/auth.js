@@ -17,7 +17,8 @@ class auth{
       if(state){
         //update profile/ref
         this.userRef = Fb.root.child('notes/users/'+state.uid)
-        todoStore.startListernining()
+        //todoStore.startListernining()
+        todoStore.fetchAllPomodarios()
       }
     })
   }

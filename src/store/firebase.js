@@ -16,6 +16,7 @@ const todos = Wilddog.sync().ref('test');
 
 window.wilddog = Wilddog
 window.todos = todos
+window.rootRef = root
 
 const Fb = {
   Wilddog,

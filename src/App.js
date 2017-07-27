@@ -5,6 +5,8 @@ import {todoStore, authStore} from './store/store'
 import {Login } from './components/login'
 import { Pomodario } from './components/pomodario'
 
+import {getUniqueId} from './utils/node'
+
 //import {observable, autorun} from 'mobx';
 import {observer} from 'mobx-react';
 
@@ -14,10 +16,10 @@ class Todos extends React.Component {
     const { todoStore }  = this.props
     if (evt.key === "Enter"){
       console.log(todoStore)
-      todoStore.add(evt.target.value)
+      todoStore.add({key: getUniqueId(), value:evt.target.value})
       evt.target.value = ''
     }
-  }
+  }1
 
   handDelete( key ){
     const { todoStore }  = this.props
@@ -44,13 +46,14 @@ class Todos extends React.Component {
   }
 };
 
+@observer
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Todos todoStore={todoStore}/>
-        <Login authStore={authStore}/>
-        <Pomodario todoStore={todoStore}/>
+      {/*<Todos todoStore={todoStore}/>*/}
+      {authStore.authState? <Pomodario todoStore={todoStore}/>:
+        <Login authStore={authStore}/>}
       </div>
     );
   }

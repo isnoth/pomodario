@@ -12,7 +12,6 @@ class Pomodario extends React.Component {
   }
 
   componentDidMount(){
-    const { todoStore } = this.props
     setInterval(()=>{
       this.setState({now: Date.now()})
     }, 1000)
@@ -21,17 +20,17 @@ class Pomodario extends React.Component {
   render(){
     const {todoStore} = this.props
     const onGoingPomodaro = todoStore.onGoing
-    console.log('onGoing: ', onGoingPomodaro, todoStore.now)
+    //console.log('onGoing: ', onGoingPomodaro, todoStore.now)
 
     return (
-      <div>
-        {onGoingPomodaro?<CountDown 
-            content={onGoingPomodaro.content}
-            start={onGoingPomodaro.start}
-            end={onGoingPomodaro.end}
-            now={new Date(this.state.now)}
-            />:null}
+      <div style={{width: '100%'}}>
           <div style={{width: '90%', float: 'left'}} >
+            {onGoingPomodaro?<CountDown 
+              content={onGoingPomodaro.content}
+              start={onGoingPomodaro.start}
+              end={onGoingPomodaro.end}
+              now={new Date(this.state.now)}
+              />:"no ongoing"}
             {CountDown}
           </div>
           <div style={{width: '10%', float: 'left'}}>
