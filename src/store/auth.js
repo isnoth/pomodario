@@ -1,5 +1,5 @@
 import {observable } from 'mobx';
-import {todoStore} from './store';
+import {todoStore, noteStore} from './store';
 import {Fb} from './firebase';
 
 class auth{
@@ -19,6 +19,7 @@ class auth{
         this.userRef = Fb.root.child('notes/users/'+state.uid)
         //todoStore.startListernining()
         todoStore.fetchAllPomodarios()
+        noteStore.fetchAllPomodarios()
       }
     })
   }

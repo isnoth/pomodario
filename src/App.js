@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import {todoStore, authStore} from './store/store'
+import {todoStore, noteStore, authStore} from './store/store'
 
 import {Login } from './components/login'
 import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
+import { Notes } from './components/notes'
 
 import { observer } from 'mobx-react';
 
@@ -22,6 +23,10 @@ class App extends Component {
 
 				<Route exact path="/app/" render={()=>(
             <Todos todoStore={todoStore}/>
+        )}/>
+
+				<Route exact path="/notes/" render={()=>(
+            <Notes noteStore={noteStore}/>
         )}/>
       </div>
     );

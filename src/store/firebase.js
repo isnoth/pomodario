@@ -1,4 +1,3 @@
-
 var Wilddog = require("wilddog"); 
 var config = {
   //syncURL: "https://modemcu.wilddogio.com",
