@@ -18,8 +18,11 @@ class App extends Component {
     return (
       <div className="App">
       {/*<Todos todoStore={todoStore}/>*/}
-        {authStore.authState? <Pomodario todoStore={todoStore}/>:
-          <Login authStore={authStore}/>}
+        {authStore.authState? null:<Login authStore={authStore}/>}
+
+				<Route exact path="/pomodario/" render={()=>(
+            <Pomodario todoStore={todoStore}/>
+        )}/>
 
 				<Route exact path="/app/" render={()=>(
             <Todos todoStore={todoStore}/>
