@@ -34,6 +34,33 @@ export function nodeGetAllChildrenId(key, obj){
   }
 }
 
+export function nodeSibling(key, obj){
+  const parent = getParent(key, obj)
+  const parentChildren = obj[parent].children
+  let index;
+  if ((index= parentChildren.indexOf(key))<parentChildren.length-1)
+    return parentChildren[index+1]
+  else
+    return null
+}
+
+export function nodePrevSibling(key, obj){
+  const parent = getParent(key, obj)
+  const parentChildren = obj[parent].children
+  let index;
+  if ((index= parentChildren.indexOf(key))>0)
+    return parentChildren[index-1]
+  else
+    return null
+}
+
+export function nodeGetFirstChild(key, obj){
+  const children = obj[key].children
+  return children?children[0]:null
+}
+
+
+
 export function getUniqueId() {
   function randomString(length, chars) {
     var result = '';
