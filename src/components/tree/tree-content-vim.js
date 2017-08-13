@@ -72,7 +72,7 @@ class TreeContentVim extends Component {
             if(key=getParent(_key, noteStore.json))
               document.getElementById(key).focus()
           }},
-          { keys: {ctrlKey: false, key: 'd'}, fn: ()=>{
+          { keys: {ctrlKey: false, key: 'd', preventDefault:false}, fn: ()=>{
             let key;
             if (this.state.edit) return ;
             if(this.state.keycodes === 'd'){
@@ -93,7 +93,11 @@ class TreeContentVim extends Component {
             }
           }},
 
-          { keys: {ctrlKey: false, key: 'i'}, fn: this.toggleEditState.bind(this)},
+          { keys: {ctrlKey: false, key: 'i', preventDefault:false}, fn: ()=>{
+            console.log(this.state.edit)
+            if (this.state.edit) return ;
+            this.toggleEditState()}
+          },
           { keys: {ctrlKey: false, key: 'Escape'}, fn: ()=>{
             this.blur()
             document.getElementById(_key).focus()
