@@ -77,30 +77,63 @@ class TreeContentVim extends Component {
             if (this.state.edit) return ;
             if(this.state.keycodes === 'd'){
               console.log('cut key', _key)
+              noteStore.cutNode = _key;
               this.setState({keycodes: ''})
             }else if(this.state.keycodes == ''){
               this.setState({keycodes: 'd'})
             }
           }},
           { keys: {ctrlKey: false, shiftKey: true,  key: 'D'}, fn: ()=>{
-            let key;
             if (this.state.edit) return ;
             if(this.state.keycodes === 'd'){
               let pKey=getParent(_key, noteStore.json)
+              let sKey = nodeSibling(_key, noteStore.json)
               noteStore.delete(_key)
               this.setState({keycodes: ''})
-              document.getElementById(pKey).focus()
+
+              const key = sKey?sKey:pKey
+              document.getElementById(key).focus()
             }
           }},
 
-          { keys: {ctrlKey: false, key: 'i', preventDefault:false}, fn: ()=>{
+          { keys: {ctrlKey: false, key: 'i', preventDefault:false}, fn: (event)=>{
             console.log(this.state.edit)
             if (this.state.edit) return ;
-            this.toggleEditState()}
-          },
+            this.toggleEditState()
+            event.preventDefault()
+          }},
+
           { keys: {ctrlKey: false, key: 'Escape'}, fn: ()=>{
-            this.blur()
-            document.getElementById(_key).focus()
+            if(this.state.edit){
+              this.blur()
+              document.getElementById(_key).focus()
+            }else{
+              this.setState({keycodes: ''})
+            }
+          }},
+
+          { keys: {ctrlKey: false, key: 'o', preventDefault:false}, fn: ()=>{
+            console.log(this.state.edit)
+            if (this.state.edit) return ;;
+            const newKey = noteStore.createNebour(_key)
+            setTimeout(()=>{
+              document.getElementById(newKey).focus() //improve focus
+            }, 0)
+          }},
+
+          { keys: {shiftKey: true, key: 'O', preventDefault:false}, fn: ()=>{
+            console.log(this.state.edit)
+            if (this.state.edit) return ;;
+            const newKey = noteStore.createChild(_key)
+            setTimeout(()=>{
+              document.getElementById(newKey).focus() //improve focus
+            }, 0)
+          }},
+
+          { keys: {ctrlKey: false, key: 'p', preventDefault:false}, fn: ()=>{
+            if (this.state.edit) return ;;
+            if(!noteStore.cutNode) return ;
+            noteStore.nodePaste(_key)
           }},
         ]
       });
