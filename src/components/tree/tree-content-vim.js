@@ -5,6 +5,28 @@ import { bindKeys } from "../../utils/keys"
 
 import { getParent, nodeSibling, nodePrevSibling, nodeGetFirstChild} from "../../utils/node2"
 
+
+function setEndOfContenteditable(contentEditableElement)
+{
+    var range,selection;
+    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+    {
+        range = document.createRange();//Create a range (a range is a like the selection but invisible)
+        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        selection = window.getSelection();//get the selection object (allows you to change selection)
+        selection.removeAllRanges();//remove any selections already made
+        selection.addRange(range);//make the range you have just created the visible selection
+    }
+    else if(document.selection)//IE 8 and lower
+    { 
+        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
+        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
+        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
+        range.select();//Select the range (make it the visible selection
+    }
+}
+
 class TreeContentVim extends Component {
   constructor(props){
     super(props)
@@ -34,7 +56,7 @@ class TreeContentVim extends Component {
   blur(){
     const {_key} = this.props
     const data = noteStore.json
-    noteStore.update(_key, Object.assign(data[_key], {content: this._input2.value} ))
+    noteStore.update(_key, Object.assign(data[_key], {content: this._input2.innerText} ))
     this.toggleEditState()
   }
 
@@ -141,15 +163,20 @@ class TreeContentVim extends Component {
   }
 
   componentDidUpdate(){
+    const {_key} = this.props
 
     if (this._input2){
       this._input2.focus()
-      console.log(this._input2.value)
+      this._input2.innerText = noteStore.json[_key].content
 
-      //to move cursor to end
-      const value  = this._input2.value
-      this._input2.value = ''
-      this._input2.value = value
+			//to move cursor to end
+      const elem = ReactDOM.findDOMNode(this._input2) //This is the element that you want to move the caret to the end of
+      setEndOfContenteditable(elem);
+
+      ////to move cursor to end
+      //const value  = this._input2.value
+      //this._input2.value = ''
+      //this._input2.value = value
     }
   }
 
@@ -167,14 +194,16 @@ class TreeContentVim extends Component {
         if( this.state.edit === false) this.toggleEditState();
       }}
       ref={(c) => this._input = c}>
-        <span
-          style={{display:!this.state.edit?'inline':'none'}} >
+        <div
+          style={{display:!this.state.edit?'inline':'none', whiteSpace: 'pre-wrap'
+          }} >
           {content}
-        </span>
+        </div>
         { this.state.edit?
-        <input 
+        <div 
           onBlur={this.blur.bind(this)}
           tabIndex={1} 
+          contentEditable={true}
           defaultValue={content}
           ref={(c) => this._input2 = c}
         />:null}
