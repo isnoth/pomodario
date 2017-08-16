@@ -23,12 +23,8 @@
   to { transform: rotate(360deg); }
 }
 
-.tree-node{
-  text-align: left;
-  margin-left: 10px;
-}
 
-.tree-node__body:before{
-  content: '-';
-}
+//.tree-node__body:before{
+//  content: '-';
+//}
 

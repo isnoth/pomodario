@@ -1,0 +1,272 @@
+.bread-crumbs{
+    margin-left: 18px;
+    display: block;
+    & a{
+      color: #666;
+    }
+}
+
+
+.tree-textarea-root{
+  width: calc(~"100% - 20px");
+  font-size: 22px;
+  padding-left:16px;
+  border-color: #fff;
+  height: 36px;
+  overflow: hidden;
+
+  &:focus{
+    border-color: #fff;
+    box-shadow: none;
+  }
+}
+
+.tree-node-wrap{
+  margin-left: 20px;
+
+  & textarea:focus{
+    border-color: #000;
+    box-shadow: none;
+  }
+}
+
+.dot {
+  width:3px;
+  border: 3px solid #666;
+  border-radius:50%;
+  display: block;
+  position:absolute;
+  left:24px;
+  top:6px;
+  z-index: 2;
+  &-md {
+    width:3px;
+    border: 3px solid #f00;
+    border-radius:50%;
+    display: block;
+    position:absolute;
+    left:24px;
+    top:6px;
+    z-index: 2;
+  }
+}
+.dot-hot{
+  width:18px;
+  height:18px;
+  left: 18px;
+  border-radius:50%;
+  border: 6px solid #999;
+  display: block;
+  position:absolute;
+  z-index: 2;
+  top: 0px;
+  background: #666;
+  cursor: pointer
+}
+
+.dot-fold{
+  width:18px;
+  height:18px;
+  left: 18px;
+  border-radius:50%;
+  border: 6px solid #ccc;
+  display: block;
+  position:absolute;
+  z-index: 1;
+}
+
+.node-btn-wrap{
+  position:absolute;
+  margin-left:-38px;
+  margin-top:3px;
+  width:18px;
+  height:18px;
+  &:hover .fold{
+    display: block;
+    position: absolute;
+    margin-left:6px;
+    margin-top: 4px;
+    color: #666;
+  }
+
+  .fold{
+    display: none;
+    //position: absolute;
+    //margin-left: 18px;
+    //margin-top: 5px;
+  }
+
+  .node-menu{
+    width: 60px;
+    margin-top: 15px;
+    margin-left:5px;
+    position:absolute;
+    z-index:5;
+
+
+
+    .arrow{
+
+      margin-left: 12px;
+      //margin-top:1px;
+      z-index:1;
+      position:absolute;
+
+      .arrow-content{
+        position:absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style:solid;
+        border-color: transparent transparent #eee transparent;
+        z-index:2;
+      }
+
+      .arrow-shadow{
+        position:absolute;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        border-style:solid;
+        border-color: transparent transparent #aaa transparent;
+        margin-top:-1px;
+        z-index:1;
+      }
+    }
+
+
+
+    .node-menu-content{
+      background-color: #eee;
+      border: solid 1px ;
+      border-color: #aaa;
+      border-radius:3px;
+      height:75px;
+      width:60px;
+      padding:4px;
+      margin-left:-6px;
+
+      position:absolute;
+      top: 18px;
+
+
+      .color-item{
+		    display: inline-block;
+        margin: 3px 3px 0px 0px;
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+        float: left;
+		  }
+
+      a{
+        font-size: 12px;
+        cursor: pointer;
+        color: grey;
+        display: block;
+
+        
+      }
+
+    }
+
+
+
+  }
+}
+
+
+.tree-textarea {
+  width: calc(~"100% - 20px");
+  overflow:hidden;
+
+  &.node-text-1{
+    text-decoration:line-through;
+    color: rgb(186, 186, 186);
+  }
+
+  &.node-icon-1{
+  }
+  
+  &.node-icon-2{
+    color:#fff;
+    background-color:#b53f45;
+    border-radius: 4px;
+  }
+  
+  &.node-icon-3{
+    color:#fff;
+    border-radius: 4px;
+    //background-color:#00314f;
+    background-color:#acba9d;
+  }
+  
+  &.node-icon-4{
+    color:#fff;
+    border-radius: 4px;
+    //background-color:#3e6b7e;
+    background-color:#eed19c;
+  }
+  
+  &.node-icon-5{
+    color:#fff;
+    border-radius: 4px;
+    //background-color:#fce4a8;
+    background-color:#efb28c;
+  }
+  
+  &.node-icon-6{
+    color:#fff;
+    border-radius: 4px;
+    background-color:#749db9;
+  }
+
+
+
+
+}
+
+
+
+.tree-textarea-fold {
+    font-style: italic;
+}
+
+.tree-node-wrapper {
+    /*position: relative;*/
+    margin-left: 20px;
+    //display: -webkit-flex;
+    //display: flex;
+    //margin-top: 5px;
+}
+
+.tree-node-wrapper:hover .dropdown-hiden {
+  display:block;
+}
+
+
+.tree-node{
+  text-align: left;
+  margin-left: 20px;
+  width: calc ( 100% - 10px );
+}
+
+
+.tree-node__body{
+  width: 100%;
+  min-height: 20px;
+  .noedit{
+    display: block;
+    white-space: pre-wrap;
+    width: 100%;
+  }
+  .inedit{
+    display: none;
+  }
+}
+
+
+.react-grid-item{
+  padding: 5px 15px;
+}
+

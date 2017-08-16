@@ -5,6 +5,8 @@ import { bindKeys } from "../../utils/keys"
 
 import { getParent, nodeSibling, nodePrevSibling, nodeGetFirstChild} from "../../utils/node2"
 
+var classNames = require('classnames');
+
 
 function setEndOfContenteditable(contentEditableElement)
 {
@@ -60,6 +62,19 @@ class TreeContentVim extends Component {
     this.toggleEditState()
   }
 
+  click(){
+    if( this.state.edit === false) {
+      this.toggleEditState();
+    }
+  }
+
+  updateFold(){
+    console.log('updateFold');
+    const {_key} = this.props
+    const node = noteStore.json[_key]
+    noteStore.update(_key, Object.assign({}, node, {fold: !node.fold}));
+  }
+
   bindKeys(){
     const {_key} = this.props
     if (this._input){
@@ -85,6 +100,7 @@ class TreeContentVim extends Component {
           { keys: {ctrlKey: false, key: 'l', preventDefault:false}, fn: ()=>{
             let key;
             if (this.state.edit) return ;
+            if (noteStore.json[_key].fold) return;
             if(key=nodeGetFirstChild(_key, noteStore.json))
               document.getElementById(key).focus()
           }},
@@ -157,6 +173,12 @@ class TreeContentVim extends Component {
             if(!noteStore.cutNode) return ;
             noteStore.nodePaste(_key)
           }},
+
+          { keys: {ctrlKey: false, key: 'z', preventDefault:false}, fn: ()=>{
+            console.log('z')
+            if (this.state.edit) return;
+            this.updateFold();
+          }},
         ]
       });
     }
@@ -185,29 +207,30 @@ class TreeContentVim extends Component {
     const data = noteStore.json
     const content=data[_key].content
 
-    return <div 
-      id={_key}
-      onFocus={this.focus.bind(this)}
-      tabIndex={1}
-      className="tree-node__body"
-      onClick={()=>{
-        if( this.state.edit === false) this.toggleEditState();
-      }}
-      ref={(c) => this._input = c}>
-        <div
-          style={{display:!this.state.edit?'inline':'none', whiteSpace: 'pre-wrap'
-          }} >
+    return (
+      <div 
+        id={_key}
+        onFocus={this.focus.bind(this)}
+        tabIndex={1}
+        className="tree-node__body"
+        ref={(c) => this._input = c}
+      >
+        <div 
+          className={classNames({'inedit':this.state.edit, 'noedit':!this.state.edit})}
+          onClick={this.click.bind(this)}>
           {content}
         </div>
         { this.state.edit?
-        <div 
-          onBlur={this.blur.bind(this)}
-          tabIndex={1} 
-          contentEditable={true}
-          defaultValue={content}
-          ref={(c) => this._input2 = c}
-        />:null}
-    </div>
+          <div 
+            onBlur={this.blur.bind(this)}
+            tabIndex={1} 
+            contentEditable={true}
+            defaultValue={content}
+            ref={(c) => this._input2 = c}
+          />:null
+        }
+      </div>
+    )
   }
 }
 

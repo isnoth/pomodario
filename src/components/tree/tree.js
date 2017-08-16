@@ -15,7 +15,11 @@ class Bullet extends Component {
     this.state = {hot: false}
   }
 
-  updateFold(){ }
+  updateFold(){
+    const {_key} = this.props
+    const node = noteStore.json[_key]
+    noteStore.update(_key, Object.assign({}, node, {fold: !node.fold}));
+  }
   drag(){}
 
   render(){
@@ -65,7 +69,7 @@ class Tree extends Component {
     console.log(data, _key, data[_key])
     const childKeys = data[_key].children
     let children = null
-    if (childKeys){
+    if (childKeys && !data[_key].fold){
       children = childKeys.map(childKey=><Tree _key={childKey} key={childKey}/>)
     }
 
