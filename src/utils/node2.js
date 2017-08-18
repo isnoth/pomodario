@@ -37,8 +37,8 @@ export function nodeGetAllChildrenId(key, obj){
 export function nodeSibling(key, obj){
   const parent = getParent(key, obj)
   const parentChildren = obj[parent].children
-  let index;
-  if ((index= parentChildren.indexOf(key))<parentChildren.length-1)
+  let index = parentChildren.indexOf(key);
+  if (index <parentChildren.length-1)
     return parentChildren[index+1]
   else
     return null
@@ -47,8 +47,8 @@ export function nodeSibling(key, obj){
 export function nodePrevSibling(key, obj){
   const parent = getParent(key, obj)
   const parentChildren = obj[parent].children
-  let index;
-  if ((index= parentChildren.indexOf(key))>0)
+  let index = parentChildren.indexOf(key);
+  if (index >0)
     return parentChildren[index-1]
   else
     return null

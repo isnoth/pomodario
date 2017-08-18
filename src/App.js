@@ -9,7 +9,7 @@ import { Notes } from './components/notes'
 
 import { observer } from 'mobx-react';
 
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 
 @observer
@@ -28,8 +28,8 @@ class App extends Component {
             <Todos todoStore={todoStore}/>
         )}/>
 
-				<Route exact path="/notes/" render={()=>(
-            <Notes noteStore={noteStore}/>
+				<Route exact path="/notes/:id" render={({match})=>(
+            <Notes noteStore={noteStore} match={match}/>
         )}/>
       </div>
     );

@@ -92,12 +92,11 @@ class notes{
     let cid = this.cutNode
     let nid = key
 
-    let cNode = obj[cid]
     let nParent = getParent( nid, obj)
     let cParent = getParent( cid, obj)
 
-    if (cParent==nParent && 
-        (obj[nParent].children.indexOf(nid)-obj[nParent].children.indexOf(cid) == -1)){
+    if (cParent===nParent && 
+        (obj[nParent].children.indexOf(nid)-obj[nParent].children.indexOf(cid) === -1)){
       console.log("1.2 -> 1.1")
     }else if(nodeGetAllChildrenId(cid, obj).indexOf(nid) > -1){
       console.log('1.1 -> 1')
@@ -111,13 +110,13 @@ class notes{
       let index = newchildren.indexOf(nid)+1
       let _index =-( newchildren.length - index)
 
-      if ((index == newchildren.length) || (newchildren.length == 1)){
+      if ((index === newchildren.length) || (newchildren.length === 1)){
         newchildren = [...newchildren, cid]
       }else{
         newchildren = [...newchildren.slice(0,index), cid, ...newchildren.slice(_index)]
       }
 
-      if (nParent != cParent){
+      if (nParent !== cParent){
         this.update(cParent, Object.assign({}, obj[cParent], { children: currentchildren}))
       }
 

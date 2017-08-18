@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import { noteStore, settingStore } from '../../store/store'
+import { Link } from "react-router-dom";
 
 import { TreeContent } from './tree-content'
 import { TreeContentVim } from './tree-content-vim'
@@ -13,6 +14,7 @@ class Bullet extends Component {
   constructor(props){
     super(props)
     this.state = {hot: false}
+    this.click = this._click.bind(this)
   }
 
   updateFold(){
@@ -21,6 +23,12 @@ class Bullet extends Component {
     noteStore.update(_key, Object.assign({}, node, {fold: !node.fold}));
   }
   drag(){}
+
+  _click(){
+    const { _key } = this.props
+    const { location, push, goBack } = this.props.routingStore;
+    push(`/notes/${_key}`)
+  }
 
   render(){
     const {_key} = this.props
@@ -33,7 +41,7 @@ class Bullet extends Component {
     return (<div className="node-btn-wrap" 
       onMouseEnter ={this.setHot}>
       {data[_key].children?<Glyphicon className="fold" glyph={data[_key].fold?"plus":"minus"} onClick={this.updateFold.bind(this, !data[_key].fold)}/>:null}
-      <div className={data[_key].md?"dot-md":"dot"}></div>
+      <div className={data[_key].md?"dot-md":"dot"} onClick={this.click}></div>
       {data[_key].fold?<div className="dot-fold" ></div>:null}
       {this.state.hot?<div 
         draggable='true' 
@@ -49,6 +57,7 @@ class Bullet extends Component {
 
 
 
+@inject('routingStore')
 @observer
 class Tree extends Component {
   constructor(props){
@@ -62,15 +71,22 @@ class Tree extends Component {
     noteStore.del(key)
   }
 
+
   render(){
     const { _key} = this.props
+    console.log(_key, this.props.routingStore)
+    const { location, push, goBack } = this.props.routingStore;
     const data = noteStore.json
 
     console.log(data, _key, data[_key])
     const childKeys = data[_key].children
     let children = null
     if (childKeys && !data[_key].fold){
-      children = childKeys.map(childKey=><Tree _key={childKey} key={childKey}/>)
+      children = childKeys.map(childKey=><Tree 
+                               _key={childKey} 
+                               key={childKey}
+                               routingStore={this.props.routingStore}
+                               />)
     }
 
     console.log('settingStore: ', settingStore.json.vim)

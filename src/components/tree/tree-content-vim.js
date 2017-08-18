@@ -86,38 +86,37 @@ class TreeContentVim extends Component {
           { keys: {ctrlKey: true, key: 'Enter'}, fn: ()=>noteStore.createNebour(_key)},
           { keys: {ctrlKey: true, key: 'Delete'}, fn: ()=>noteStore.delete(_key)},
           { keys: {ctrlKey: false, key: 'j', preventDefault:false}, fn: ()=>{
-            let key;
-            if (this.state.edit) return ;
-            if(key=nodeSibling(_key, noteStore.json))
+            if (this.state.edit) return;
+            let key=nodeSibling(_key, noteStore.json);
+            if(key)
               document.getElementById(key).focus()
           }},
           { keys: {ctrlKey: false, key: 'k', preventDefault:false}, fn: ()=>{
-            let key;
-            if (this.state.edit) return ;
-            if(key=nodePrevSibling(_key, noteStore.json))
+            if (this.state.edit) {return} ;
+            let key = nodePrevSibling(_key, noteStore.json);
+            if(key)
               document.getElementById(key).focus()
           }},
           { keys: {ctrlKey: false, key: 'l', preventDefault:false}, fn: ()=>{
-            let key;
-            if (this.state.edit) return ;
-            if (noteStore.json[_key].fold) return;
-            if(key=nodeGetFirstChild(_key, noteStore.json))
+            if (this.state.edit) {return} ;
+            if (noteStore.json[_key].fold) {return};
+            let key = nodeGetFirstChild(_key, noteStore.json);
+            if(key)
               document.getElementById(key).focus()
           }},
           { keys: {ctrlKey: false, key: 'h', preventDefault:false}, fn: ()=>{
-            let key;
-            if (this.state.edit) return ;
-            if(key=getParent(_key, noteStore.json))
+            if (this.state.edit) {return} ;
+            let key = getParent(_key, noteStore.json);
+            if(key)
               document.getElementById(key).focus()
           }},
           { keys: {ctrlKey: false, key: 'd', preventDefault:false}, fn: ()=>{
-            let key;
             if (this.state.edit) return ;
             if(this.state.keycodes === 'd'){
               console.log('cut key', _key)
               noteStore.cutNode = _key;
               this.setState({keycodes: ''})
-            }else if(this.state.keycodes == ''){
+            }else if(this.state.keycodes === ''){
               this.setState({keycodes: 'd'})
             }
           }},

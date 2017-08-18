@@ -1,3 +1,5 @@
+import { RouterStore } from 'mobx-react-router';
+
 import {todos} from './todos'
 import {notes} from './notes'
 import {auth} from './auth'
@@ -8,7 +10,11 @@ const noteStore = new notes()
 const authStore = new auth();
 const settingStore = new settings();
 
+
 window.todoStore = todoStore
 window.authStore = authStore
 
-export {todoStore, noteStore, authStore, settingStore};
+//routers
+const routingStore = new RouterStore();
+
+export {todoStore, noteStore, authStore, settingStore, routingStore};

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/react-grid-layout.css';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
-import { noteStore, settingStore } from '../store/store'
 import {Responsive, WidthProvider} from 'react-grid-layout';
 
 import { Tree } from './tree/tree'
@@ -13,11 +12,20 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const isEmpty = (obj)=>(!!(Object.keys(obj).length===0))
 
+@inject('routingStore')
 @observer
 class Notes extends Component {
+
+  componentWillReceiveProps(nextProps) {
+    const {match} = this.props
+    console.log('match is:', match);
+  }
+
   render() {
-    const {noteStore} = this.props
-    const _key = 'root';
+    const {noteStore, match, routingStore} = this.props
+    const pathname = routingStore.location.pathname
+    const _key = pathname.match('root|BN[\-a-zA-Z0-9]+')
+    if (!_key) return null
     const data = noteStore.json
     if (isEmpty(data)) return null;
 
