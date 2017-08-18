@@ -36,6 +36,8 @@ class TreeContentVim extends Component {
       edit: false,
       keycodes:""
     }
+    this.jump = this._jump.bind(this)
+    this.goback = this._goback.bind(this)
   }
 
   componentDidMount(){
@@ -53,6 +55,17 @@ class TreeContentVim extends Component {
     //if(this.state.edit === false){
     //  this.toggleEditState()
     //}
+  }
+
+  _jump(){
+    const { _key } = this.props
+    const { location, push, goBack } = this.props.routingStore;
+    push(`/notes/${_key}`)
+  }
+
+  _goback(){
+    const { location, push, goBack } = this.props.routingStore;
+    goBack()
   }
 
   blur(){
@@ -178,6 +191,17 @@ class TreeContentVim extends Component {
             if (this.state.edit) return;
             this.updateFold();
           }},
+
+          { keys: {ctrlKey: true, key: ']', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.jump();
+          }},
+
+          { keys: {ctrlKey: true, key: '[', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.goback();
+          }},
+
         ]
       });
     }

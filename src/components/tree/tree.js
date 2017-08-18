@@ -91,7 +91,7 @@ class Tree extends Component {
 
     console.log('settingStore: ', settingStore.json.vim)
     const treeContent = settingStore.json.vim?
-    <TreeContentVim _key={_key} {...this.state}/>:
+    <TreeContentVim _key={_key} {...this.state} {...this.props}/>:
       <TreeContent _key={_key} {...this.state}/>
 
     return (
