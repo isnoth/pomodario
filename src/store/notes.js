@@ -123,8 +123,8 @@ class notes{
       this.update(nParent, Object.assign({}, obj[nParent], { children: newchildren}))
       this.cutNode = null
     }
-
   }
+
 }
 
 
