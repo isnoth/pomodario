@@ -229,6 +229,7 @@ class TreeContentVim extends Component {
     const { _key} = this.props
     const data = noteStore.json
     const content=data[_key].content
+    const style = data[_key].style
 
     return (
       <div 
@@ -240,7 +241,9 @@ class TreeContentVim extends Component {
       >
         <div 
           className={classNames({'inedit':this.state.edit, 'noedit':!this.state.edit})}
-          onClick={this.click.bind(this)}>
+          onClick={this.click.bind(this)}
+          style={style}
+          >
           {content}
         </div>
         { this.state.edit?
