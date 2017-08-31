@@ -1,11 +1,21 @@
-var Wilddog = require("wilddog"); 
-var config = {
-  //syncURL: "https://modemcu.wilddogio.com",
-  syncURL: "https://bn5.wilddogio.com",
-  websocketOnly: false,
-  //authDomain: "modemcu.wilddog.com"
-  authDomain: "bn5.wilddog.com"
-};
+var Wilddog = require("wilddog");
+
+var config
+
+if('development' === process.env.NODE_ENV){
+  config = {
+    syncURL: "https://bn5.wilddogio.com",
+    websocketOnly: false,
+    authDomain: "bn5.wilddog.com"
+  }
+}else{
+  config = {
+    syncURL: "https://bn5s.wilddogio.com",
+    websocketOnly: false,
+    authDomain: "bn5s.wilddog.com"
+  }
+}
+
 Wilddog.initializeApp(config);
 
 const root = Wilddog.sync().ref();
