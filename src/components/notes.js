@@ -7,11 +7,9 @@ import {Responsive, WidthProvider} from 'react-grid-layout';
 
 import { Tree } from './tree/tree'
 import { initLayout } from "../utils/node2"
+import { bindKeys } from "../utils/keys"
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
-
-
 const isEmpty = (obj)=>(!!(Object.keys(obj).length===0))
 
 function checkLayout (layouts){
@@ -46,6 +44,11 @@ function checkLayout (layouts){
 class Notes extends Component {
   constructor(props){
     super(props)
+    this.goback = this._goback.bind(this)
+  }
+  
+  componentDidMount(){
+    this.bindKeys()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,10 +79,25 @@ class Notes extends Component {
 
     const newNode = Object.assign({}, noteStore.json[_key], {layouts:{lg:lg, xs:xs}})
     noteStore.update(_key, newNode)
+  }
+
+  _goback(){
+    console.log('goBack')
+    const { location, push, goBack } = this.props.routingStore;
+    goBack()
+  }
 
 
-
-
+  bindKeys(){
+    bindKeys({
+      el: document,
+      keyList: [
+        { keys: {ctrlKey: true, key: '[', preventDefault:false}, fn: ()=>{
+          //if (this.state.edit) return;
+          this.goback();
+        }},
+      ]
+    })
   }
 
   render() {

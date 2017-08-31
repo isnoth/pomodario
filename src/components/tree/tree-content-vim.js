@@ -197,10 +197,6 @@ class TreeContentVim extends Component {
             this.jump();
           }},
 
-          { keys: {ctrlKey: true, key: '[', preventDefault:false}, fn: ()=>{
-            //if (this.state.edit) return;
-            this.goback();
-          }},
 
         ]
       });
