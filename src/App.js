@@ -6,6 +6,7 @@ import {Login } from './components/login'
 import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
 import { Notes } from './components/notes'
+import Vim from './components/vim'
 
 import { observer } from 'mobx-react';
 
@@ -17,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <Vim/>
       {/*<Todos todoStore={todoStore}/>*/}
         {authStore.authState? null:<Login authStore={authStore}/>}
 
