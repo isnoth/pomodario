@@ -18,10 +18,21 @@ class notes{
   }
 
   fetchAllPomodarios(){
-    fetchAllFromRef(100, authStore.userRef.child(NOTES_REF))
+    console.log('fetchAllPomodarios');
+    fetchAllFromRef(10, authStore.userRef.child(NOTES_REF))
     .then(notes=>{
       this.notes.replace(notes)
+      return Promise.resolve()
     })
+    .then(this.checkNodes.bind(this))
+  }
+
+  checkNodes(){
+    const notes = toJS(this.notes)
+    console.log(notes)
+    if(!notes['root'].children){
+      this.createChild('root')
+    }
   }
 
   add ({key, value}){

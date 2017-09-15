@@ -12,6 +12,7 @@ const settingStore = new settings();
 
 
 window.todoStore = todoStore
+window.noteStore = noteStore
 window.authStore = authStore
 
 //routers
