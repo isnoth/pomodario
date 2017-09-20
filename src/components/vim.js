@@ -1,63 +1,74 @@
+import {observer, inject} from 'mobx-react';
 import React, { Component } from 'react';
 import { bindKeys } from "../utils/keys"
 import '../styles/tooltip.less'
+import {createTooltipsForTreeNode, clearTooltipsForTreeNode, getToolTipLabel} from '../utils/tooltip'
+import { isEmpty, isEmptyOrNull} from '../utils/common'
 
-export default class Vim extends Component {
-  componentDidMount(){
-    var tooltips = []
+const Tooltip = ({label, data, props})=>{
+  console.log('Tooltip props', props)
+  if(props.vimStore.keys.slice(1)===label){
+    const node = document.getElementById(data.id)
+    //console.log('focus node:', node)
+    //setTimeout(()=>{node.focus()}, 0)
+  }
+  return <div 
+    className="vim-tooltip" 
+    style={{
+      left:data.pos.left+'px',
+      top: data.pos.top+'px',
+      visibility:(!!~label.indexOf(props.vimStore.keys.slice(1)))?'visible':'hidden'
+    }}>
+    {label}
+  </div>
+}
 
-    function createTooltipsForTreeNode(){
+const Tooltips = ({data, keys, ...props})=>{
+  console.log('tooltips is:', data, props)
 
-        function createTooltip(pos, label){
-            const div = document.createElement('div')
-            div.className = 'vim-tooltip'
-            div.style.left = pos.left+'px'
-            div.style.top = pos.top+'px'
+  if (isEmptyOrNull(data)){
+    return null
+  }
 
-            const tooltip = document.createElement('span')
-            tooltip.innerText = label
-            div.appendChild(tooltip)
-
-            document.body.appendChild(div)
-            return div
-        }
-
-        function createTooltips(nodes){
-          Array.prototype.forEach.call(nodes, (node, index)=>{
-            const pos = node.getBoundingClientRect();
-            const label = getToolTipLabel(index)
-            const tooltip = createTooltip(pos, label)
-            tooltips.push(tooltip)
-          })
-        }
-
-        const nodes = document.getElementsByClassName('tree-node__body')
-        createTooltips(nodes)
-    }
-
-    function clearTooltipsForTreeNode(){
-      tooltips.forEach(tooltip=>{
-        document.body.removeChild(tooltip)
+  return (<div>
+    {
+      Object.keys(data).map(i=>{
+        return Tooltip({label:i, data:data[i], props})
       })
-      tooltips = []
     }
+  </div>)
+}
 
-    function getToolTipLabel(index){
-      return String.fromCharCode(0x61+index);
-    }
+@inject('vimStore')
+@inject('tooltipStore')
+@observer
+class Vim extends Component {
+  componentDidMount(){
+    document.body.addEventListener('keydown', this.bindKey.bind(this))
+  }
 
-		bindKeys({
-      el: document.body,
-      keyList: [
-        { keys: {ctrlKey:false, shiftKey: true, key: '~'}, fn: createTooltipsForTreeNode },
-        { keys: {ctrlKey:true, shiftKey: false, key: '`'}, fn: clearTooltipsForTreeNode },
-      ]
-    })
-
-
+  bindKey(evt){
+    const {vimStore} = this.props
+    vimStore.keyPress({keyName: evt.key})
   }
 
   render(){
-    return <span></span>
+    const {vimStore, tooltipStore} = this.props
+    console.log('---', vimStore)
+    const tooltips = tooltipStore.json
+
+
+
+    return <div>
+      <Tooltips data={tooltips} keys={vimStore.keys} {...this.props}/>
+      <div style={{position: 'fixed', bottom:'0px' }}>
+        <p> {vimStore.keys} </p>
+        <p> {vimStore.state} </p>
+        <p> {vimStore.history.join('')} </p>
+        <button onClick={()=>{tooltipStore.createTooltips()}}> tooltip </button>
+      </div>
+    </div>
   }
 }
+
+export default Vim

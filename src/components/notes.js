@@ -8,9 +8,10 @@ import {Responsive, WidthProvider} from 'react-grid-layout';
 import { Tree } from './tree/tree'
 import { initLayout } from "../utils/node2"
 import { bindKeys } from "../utils/keys"
+import { isEmpty } from '../utils/common'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-const isEmpty = (obj)=>(!!(Object.keys(obj).length===0))
+//const isEmpty = (obj)=>(!!(Object.keys(obj).length===0))
 
 function checkLayout (layouts){
   console.log('checkLayout', layouts);
