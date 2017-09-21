@@ -37,8 +37,12 @@ function clearTooltipsForTreeNode(){
   tooltips = []
 }
 
-function getToolTipLabel(index){
+function getStrIndex(index){
   return String.fromCharCode(0x61+index);
+}
+
+function getToolTipLabel(index){
+  return getStrIndex(index/26)+getStrIndex(index%26)
 }
 
 

@@ -6,14 +6,8 @@ import {createTooltipsForTreeNode, clearTooltipsForTreeNode, getToolTipLabel} fr
 import { isEmpty, isEmptyOrNull} from '../utils/common'
 
 const Tooltip = ({label, data, props})=>{
-  console.log('Tooltip props', props)
-  if(props.vimStore.keys.slice(1)===label){
-    const node = document.getElementById(data.id)
-    //console.log('focus node:', node)
-    //setTimeout(()=>{node.focus()}, 0)
-  }
-  return <div 
-    className="vim-tooltip" 
+  return <div
+    className="vim-tooltip"
     style={{
       left:data.pos.left+'px',
       top: data.pos.top+'px',

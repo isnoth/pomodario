@@ -19,7 +19,7 @@ class notes{
 
   fetchAllPomodarios(){
     console.log('fetchAllPomodarios');
-    fetchAllFromRef(10, authStore.userRef.child(NOTES_REF))
+    fetchAllFromRef(100, authStore.userRef.child(NOTES_REF))
     .then(notes=>{
       this.notes.replace(notes)
       return Promise.resolve()
