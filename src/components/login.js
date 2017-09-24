@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {observer} from 'mobx-react';
-
+import {observer, inject} from 'mobx-react';
+import {Input, Panel, Modal, Col, InputGroup, FormControl, ControlLabel, Form, FormGroup, Checkbox, Button} from "react-bootstrap" 
+@inject('uiStore')
+@inject('authStore')
 @observer
 class Login extends Component {
   handleKeyPress(evt){
@@ -23,17 +25,23 @@ class Login extends Component {
   }
 
   render() {
-    const {authStore} = this.props
-    console.log(authStore.authState)
+    const {authStore, uiStore} = this.props
 
-    return (<div>
-
-        {authStore.authState?authStore.authState.email: 'not login'}
-        <input ref={c=>this.usr=c}></input>
-        <input ref={c=>this.pwd=c}></input>
-        <button onClick={this.login.bind(this)}>login</button>
-        <button onClick={authStore.logout}>logout</button>
-    </div>
+    return (
+    <Modal bsSize="small" show={uiStore.showLoginModal} onHide={uiStore.closeLoginModal}>
+      <Modal.Header closeButton >
+        <Modal.Title>Modal heading</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ControlLabel>email:</ControlLabel>
+        <FormControl type="email" placeholder="Userid" inputRef={c=>this.usr=c}/>
+        <ControlLabel>password:</ControlLabel>
+        <FormControl type="password" placeholder="Passwd" inputRef={c=>this.pwd=c}/>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={this.login.bind(this)}>login </Button>
+      </Modal.Footer>
+    </Modal>
     );
   }
 };

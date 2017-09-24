@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import {todoStore, noteStore, authStore} from './store/store'
 
-import {Login } from './components/login'
+import { Login } from './components/login'
+import  Nav from './components/nav'
 import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
 import { Notes } from './components/notes'
@@ -20,7 +21,11 @@ class App extends Component {
       <div className="App">
       <Vim/>
       {/*<Todos todoStore={todoStore}/>*/}
-        {authStore.authState? null:<Login authStore={authStore}/>}
+        <Nav/>
+
+				<Route exact path="/" render={()=>(
+            <Notes/>
+        )}/>
 
 				<Route exact path="/pomodario/" render={()=>(
             <Pomodario todoStore={todoStore}/>
@@ -31,7 +36,7 @@ class App extends Component {
         )}/>
 
 				<Route exact path="/notes/:id" render={({match})=>(
-            <Notes noteStore={noteStore} match={match}/>
+            <Notes match={match}/>
         )}/>
       </div>
     );

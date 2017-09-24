@@ -40,6 +40,7 @@ function checkLayout (layouts){
 }
 
 
+@inject('noteStore')
 @inject('routingStore')
 @observer
 class Notes extends Component {

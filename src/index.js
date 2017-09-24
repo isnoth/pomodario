@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import { routingStore, vimStore, tooltipStore } from './store/store'
+import { routingStore, vimStore, tooltipStore, authStore, noteStore, uiStore } from './store/store'
 import { Provider } from 'mobx-react';
 
 import { BrowserRouter as Router, HashRouter} from "react-router-dom";
@@ -18,7 +18,11 @@ const renderApp = Component => {
     <Provider
       routingStore={routingStore}
       vimStore={vimStore}
-      tooltipStore={tooltipStore}>
+      tooltipStore={tooltipStore}
+      authStore={authStore}
+      noteStore={noteStore}
+      uiStore={uiStore}
+      >
     <Router history={history}>
       <App />
     </Router>

@@ -1,5 +1,5 @@
-import {observable } from 'mobx';
-import {todoStore, noteStore} from './store';
+import {observable, action} from 'mobx';
+import {todoStore, noteStore, uiStore} from './store';
 import {Fb} from './firebase';
 
 class auth{
@@ -24,16 +24,19 @@ class auth{
     })
   }
 
+  @action.bound
   login(usr, pwd){
     Fb.Wilddog.auth().signInWithEmailAndPassword(usr, pwd)
     .then(res=>{
       console.log('auth!!')
+      uiStore.closeLoginModal()
     })
     .catch(err=>{
       console.log(err)
     })
   }
 
+  @action.bound
   logout(){
     Fb.Wilddog.auth().signOut()
   }
