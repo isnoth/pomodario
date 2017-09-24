@@ -21,7 +21,7 @@ class App extends Component {
       <div className="App">
       <Vim/>
       {/*<Todos todoStore={todoStore}/>*/}
-        <Nav/>
+        {/*<Nav/>*/}
 
 				<Route exact path="/" render={()=>(
             <Notes/>
