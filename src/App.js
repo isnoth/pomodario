@@ -9,9 +9,12 @@ import { Todos } from './components/todos'
 import { Notes } from './components/notes'
 import Vim from './components/vim'
 
+
 import { observer } from 'mobx-react';
 
 import { Route } from "react-router-dom";
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 @observer
@@ -21,7 +24,7 @@ class App extends Component {
       <div className="App">
       <Vim/>
       {/*<Todos todoStore={todoStore}/>*/}
-        {/*<Nav/>*/}
+        <Nav/>
 
 				<Route exact path="/" render={()=>(
             <Notes/>
