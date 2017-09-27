@@ -44,7 +44,7 @@ function getStrIndex(index){
 }
 
 function getToolTipLabel(index){
-  return getStrIndex(parseInt(index/15))+getStrIndex(index%15)
+  return getStrIndex(parseInt(index/15, 10))+getStrIndex(index%15)
 }
 
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {observer, inject} from 'mobx-react';
 import { noteStore, settingStore } from '../../store/store'
-import { Link } from "react-router-dom";
 
 import { TreeContent } from './tree-content'
 import { TreeContentVim } from './tree-content-vim'
@@ -26,7 +25,7 @@ class Bullet extends Component {
 
   _click(){
     const { _key } = this.props
-    const { location, push, goBack } = this.props.routingStore;
+    const { push } = this.props.routingStore;
     push(`/notes/${_key}`)
   }
 
@@ -75,7 +74,6 @@ class Tree extends Component {
   render(){
     const { _key} = this.props
     console.log(_key, this.props.routingStore)
-    const { location, push, goBack } = this.props.routingStore;
     const data = noteStore.json
 
     console.log(data, _key, data[_key])

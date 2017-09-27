@@ -1,9 +1,10 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import { CountDown } from './countdown'
 import { Button} from 'react-bootstrap'
 import '../styles/electron.less'
 
+@inject('todoStore')
 @observer
 class Pomodario extends React.Component {
   constructor(props){

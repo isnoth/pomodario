@@ -85,7 +85,7 @@ class Notes extends Component {
 
   _goback(){
     console.log('goBack')
-    const { location, push, goBack } = this.props.routingStore;
+    const { goBack } = this.props.routingStore;
     goBack()
   }
 
@@ -103,9 +103,9 @@ class Notes extends Component {
   }
 
   render() {
-    const {noteStore, match, routingStore} = this.props
+    const {noteStore, routingStore} = this.props
     const pathname = routingStore.location.pathname
-    let _key = pathname.match('root|BN[\-a-zA-Z0-9]+')
+    let _key = pathname.match('root|BN[-a-zA-Z0-9]+')
     _key = _key?_key[0]:'root'
     const data = noteStore.json
     if (isEmpty(data)) return null;

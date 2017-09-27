@@ -1,9 +1,7 @@
 import {observer, inject} from 'mobx-react';
 import React, { Component } from 'react';
-import { bindKeys } from "../utils/keys"
 import '../styles/tooltip.less'
-import {createTooltipsForTreeNode, clearTooltipsForTreeNode, getToolTipLabel} from '../utils/tooltip'
-import { isEmpty, isEmptyOrNull} from '../utils/common'
+import { isEmptyOrNull } from '../utils/common'
 
 const Tooltip = ({label, data, props})=>{
   return <div

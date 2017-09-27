@@ -6,7 +6,7 @@ import './index.css';
 import { routingStore, vimStore, tooltipStore, authStore, noteStore, uiStore } from './store/store'
 import { Provider } from 'mobx-react';
 
-import { BrowserRouter as Router, HashRouter} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import createBrowserHistory from 'history/createBrowserHistory';
 import { syncHistoryWithStore } from 'mobx-react-router';
 

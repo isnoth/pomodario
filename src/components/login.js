@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {observer, inject} from 'mobx-react';
-import {Input, Panel, Modal, Col, InputGroup, FormControl, ControlLabel, Form, FormGroup, Checkbox, Button} from "react-bootstrap" 
+import '../styles/bn.less'
+var classNames = require('classnames')
+
 @inject('uiStore')
 @inject('authStore')
 @observer
@@ -25,23 +27,32 @@ class Login extends Component {
   }
 
   render() {
-    const {authStore, uiStore} = this.props
+    const { uiStore } = this.props
 
     return (
-    <Modal bsSize="small" show={uiStore.showLoginModal} onHide={uiStore.closeLoginModal}>
-      <Modal.Header closeButton >
-        <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <ControlLabel>email:</ControlLabel>
-        <FormControl type="email" placeholder="Userid" inputRef={c=>this.usr=c}/>
-        <ControlLabel>password:</ControlLabel>
-        <FormControl type="password" placeholder="Passwd" inputRef={c=>this.pwd=c}/>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={this.login.bind(this)}>login </Button>
-      </Modal.Footer>
-    </Modal>
+			<div className={classNames({modal: true, fade: true, show: uiStore.showLoginModal})} style={{display:uiStore.showLoginModal?'block':'none'}}>
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title">PLEASE SIGN IN</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={uiStore.closeLoginModal}>
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<form className="form-signin">
+								<label for="inputEmail" className="sr-only" >Email address</label>
+								<input ref={c=>this.usr=c} type="email" id="inputEmail" className="form-control" placeholder="Email address" required="" autofocus=""/>
+								<label for="inputPassword" className="sr-only" >Password</label>
+								<input ref={c=>this.pwd=c} type="password" id="inputPassword" className="form-control" placeholder="Password" required=""/>
+							</form>
+						</div>
+						<div className="modal-footer">
+              <button onClick={this.login.bind(this)} className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+						</div>
+					</div>
+				</div>
+			</div>
     );
   }
 };

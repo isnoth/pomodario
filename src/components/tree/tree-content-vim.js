@@ -59,12 +59,12 @@ class TreeContentVim extends Component {
 
   _jump(){
     const { _key } = this.props
-    const { location, push, goBack } = this.props.routingStore;
+    const { push } = this.props.routingStore;
     push(`/notes/${_key}`)
   }
 
   _goback(){
-    const { location, push, goBack } = this.props.routingStore;
+    const { goBack } = this.props.routingStore;
     goBack()
   }
 

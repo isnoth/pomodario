@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {observer} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import {getUniqueId} from '../utils/node'
 
+@inject('todoStore')
 @observer
 class Todos extends Component {
   handleKeyPress(evt){

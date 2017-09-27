@@ -1,5 +1,5 @@
 import {observable } from 'mobx';
-import {todoStore, noteStore, tooltipStore} from './store';
+import { tooltipStore } from './store';
 
 const MODE_NORMAL = "MODE_NORMAL"
 const MODE_EDIT = "MODE_EDIT"
@@ -8,9 +8,6 @@ class vim{
   @observable state = MODE_NORMAL;
   @observable keys = '';
   @observable history = [];
-
-  constructor(){
-  }
 
   initState(){
     this.state = MODE_NORMAL

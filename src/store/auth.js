@@ -18,6 +18,7 @@ class auth{
         //update profile/ref
         this.userRef = Fb.root.child('notes/users/'+state.uid)
         //todoStore.startListernining()
+        uiStore.closeLoginModal()
         todoStore.fetchAllPomodarios()
         noteStore.fetchAllPomodarios()
       }
@@ -26,6 +27,7 @@ class auth{
 
   @action.bound
   login(usr, pwd){
+    console.log('login: ', usr, pwd);
     Fb.Wilddog.auth().signInWithEmailAndPassword(usr, pwd)
     .then(res=>{
       console.log('auth!!')
