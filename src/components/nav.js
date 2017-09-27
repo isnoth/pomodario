@@ -4,7 +4,7 @@ import { Login } from './login'
 import {observer, inject} from 'mobx-react';
 //import {SplitButton, Navbar, NavItem, Nav, NavDropdown, MenuItem, Label} from 'react-bootstrap'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 
 import {Dropdown} from './common/dropdown'
 

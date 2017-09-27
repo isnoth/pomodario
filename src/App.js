@@ -3,7 +3,7 @@ import './App.css';
 import {todoStore, noteStore, authStore} from './store/store'
 
 import { Login } from './components/login'
-import  Nav from './components/nav'
+import  Nav from './components/navbar'
 import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
 import { Notes } from './components/notes'
