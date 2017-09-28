@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {nodeGetAllChildrenId, nodeSibling, nodePrevSibling, nodeGetFirstChild} from "./node2"
+import {nodeGetAllChildrenId, nodeSibling, nodePrevSibling, nodeGetFirstChild, getRootPath, getRootPathAndContent} from "./node2"
 
 describe('node2', function () {
   it('getAllChildrenId() should return ok', function () {
@@ -70,4 +70,41 @@ describe('node2', function () {
     expect(nodeGetFirstChild("BN2", nodes)).to.equal(null)
     expect(nodeGetFirstChild("BN3", nodes)).to.equal('BN4')
   })
+
+  it('getRootPath() should return ok', function () {
+    const nodes = {
+      BN1: {id: 'BN1', content: "taobao"},
+      BN2: {id: 'BN2', content: "taobao"},
+      BN3: {id: 'BN3', content: "taobao", children:["BN4"]}, 
+      BN4: {id: 'BN4', content: "taobao", children:["BN5"]},
+      BN5: {id: 'BN5', content: "taobao"},
+      root: {id: "root", children: ['BNx']},
+      BNx: {id: 'BNx', children:["BN1","BN2",'BN3']}
+    }
+    expect(getRootPath("BN1", nodes)[0]).to.equal('root')
+    expect(getRootPath("BN1", nodes)[1]).to.equal('BNx')
+    expect(getRootPath("BN1", nodes).length).to.equal(2)
+  })
+
+  it('getRootPathAndContent() should return ok', function () {
+    const nodes = {
+      BN1: {id: 'BN1', content: "taobao"},
+      BN2: {id: 'BN2', content: "taobao"},
+      BN3: {id: 'BN3', content: "taobao", children:["BN4"]}, 
+      BN4: {id: 'BN4', content: "taobao", children:["BN5"]},
+      BN5: {id: 'BN5', content: "taobao"},
+      root: {id: "root", content:"", children: ['BNx']},
+      BNx: {id: 'BNx',content: 'hello', children:["BN1","BN2",'BN3']}
+    }
+    expect(JSON.stringify(getRootPathAndContent("BNx",nodes)))
+      .to.equal(JSON.stringify([{id:'root', content:'Home'}, {id: 'BNx', content:'hello'}]))
+
+    expect(JSON.stringify(getRootPathAndContent("BN1",nodes)))
+      .to.equal(JSON.stringify([{id:'root', content:'Home'}, 
+                               {id: 'BNx', content:'hello'},
+                               {id: 'BN1', content:'taobao'},
+      ]))
+  })
+
+
 })

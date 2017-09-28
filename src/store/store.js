@@ -15,6 +15,7 @@ const settingStore = new settings();
 const vimStore = new vim();
 const tooltipStore = new tooltip();
 const uiStore = new ui();
+const routingStore = new RouterStore();
 
 
 window.todoStore = todoStore
@@ -22,8 +23,7 @@ window.noteStore = noteStore
 window.authStore = authStore
 window.vimStore = vimStore
 window.uiStore = uiStore
+window.routingStore = routingStore
 
-//routers
-const routingStore = new RouterStore();
 
 export {todoStore, noteStore, authStore, settingStore, routingStore, vimStore, tooltipStore, uiStore};

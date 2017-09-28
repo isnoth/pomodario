@@ -12,13 +12,29 @@ export function getParent( key, obj ){
 
 export function getRootPath(key, obj){
   let paths = []
+
   let path = key
   //paths.push(path)
+  if (!getParent(path, obj)){
+    return []
+  }
+
   while (path && path!=="root"){
     path = getParent(path, obj)
     paths.push(path)
   }
   return paths.reverse()
+}
+
+export function getRootPathAndContent(key, obj){
+  const rootPath = getRootPath(key, obj)
+  if (rootPath.length){
+    return getRootPath(key, obj)
+      .map(i=>({id:i, content:i==='root'?'Home':obj[i].content}))
+      .concat([{id: key, content:obj[key].content}])
+  }else{
+    return [ {id: 'root', content: 'Home'} ]
+  }
 }
 
 export function nodeGetAllChildrenId(key, obj){

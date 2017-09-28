@@ -53,12 +53,12 @@ class Vim extends Component {
 
     return <div>
       <Tooltips data={tooltips} keys={vimStore.keys} {...this.props}/>
-      <div style={{position: 'fixed', bottom:'0px' }}>
+      {/*<div style={{position: 'fixed', bottom:'0px' }}>
         <p> {vimStore.keys} </p>
         <p> {vimStore.state} </p>
         <p> {vimStore.history.join('')} </p>
         <button onClick={()=>{tooltipStore.createTooltips()}}> tooltip </button>
-      </div>
+      </div>*/}
     </div>
   }
 }

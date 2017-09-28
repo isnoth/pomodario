@@ -2,6 +2,40 @@ import React, { Component } from 'react';
 import {observer, inject} from 'mobx-react';
 import {Dropdown, DropdownItem} from './common/dropdown'
 import 'bootstrap/dist/css/bootstrap.css';
+import {getRootPathAndContent} from '../utils/node2'
+
+
+@inject('routingStore')
+@inject('noteStore')
+@observer
+class BreadCrumb extends Component{
+
+	componentWillReceiveProps(nextProps) {
+		console.log('[test] BreadCrumb receive new props:', nextProps)
+	}
+
+  render(){
+    const {routingStore, noteStore} = this.props
+    const pathname = routingStore.location.pathname
+    let _key = pathname.match('root|BN[-a-zA-Z0-9]+')
+    _key = _key?_key[0]:'root'
+		const content = noteStore.json
+
+    const pathAndContents = getRootPathAndContent(_key, noteStore.json)
+    console.log('[test] pathAndContents:', pathAndContents, _key, content)
+
+		return (
+			<ol className="breadcrumb">
+        {pathAndContents?pathAndContents.map(i=>(
+           <li className="breadcrumb-item">
+             <a onClick={()=>{routingStore.push('/notes/'+i.id)}}>{i.content}</a>
+           </li>
+        )):null}
+			</ol>
+		)
+  }
+}
+
 
 @inject('uiStore')
 @inject('authStore')
@@ -21,7 +55,8 @@ class NavBar extends Component{
     });
   }
   render(){
-    const {authStore, uiStore} = this.props
+    const {authStore, uiStore, routingStore, noteStore} = this.props
+
 
     const unAuthSection = (
       <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
@@ -46,19 +81,16 @@ class NavBar extends Component{
       </ul>
     )
 
+
     return (
 		  <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a className="navbar-brand" href="/">BN5x</a>
+        <a className="navbar-brand" href="/" onClick={()=>routingStore.push('/')}>BN5x</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarsExample02">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-            </li>
-          </ul>
+          <BreadCrumb/>
           {(authStore.authState&&authStore.authState.email)?authSection:unAuthSection}
         </div>
       </nav>
