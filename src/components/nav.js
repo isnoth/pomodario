@@ -26,8 +26,8 @@ class BreadCrumb extends Component{
 
 		return (
 			<ol className="breadcrumb">
-        {pathAndContents?pathAndContents.map(i=>(
-           <li className="breadcrumb-item">
+        {pathAndContents?pathAndContents.map((i, index)=>(
+           <li className="breadcrumb-item" key={index}>
              <a onClick={()=>{routingStore.push('/notes/'+i.id)}}>{i.content}</a>
            </li>
         )):null}
@@ -55,8 +55,7 @@ class NavBar extends Component{
     });
   }
   render(){
-    const {authStore, uiStore, routingStore, noteStore} = this.props
-
+    const {authStore, uiStore, routingStore} = this.props
 
     const unAuthSection = (
       <ul className="nav navbar-nav flex-row justify-content-between ml-auto">

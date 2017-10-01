@@ -39,6 +39,33 @@ function checkLayout (layouts){
   }
 }
 
+var toPercent = function(val){
+  return (Math.round(val * 10000)/100).toFixed(2) + '%';
+}
+
+
+@inject('noteStore')
+@observer
+class Loading extends Component{
+  render(){
+    const {noteStore} = this.props
+    const {currentFetchNumbers, totalNodeNumbers} = noteStore
+    const percent = toPercent(parseInt(currentFetchNumbers)/parseInt(totalNodeNumbers))
+    console.log('percent is:', percent)
+
+    return(
+      <div>
+        <p> {noteStore.currentFetchNumbers}</p>
+        <p> {noteStore.totalNodeNumbers}</p>
+				<div className="progress">
+					<div className="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: percent}}> {percent}
+					</div>
+        </div>
+      </div>
+    )
+  }
+
+}
 
 @inject('noteStore')
 @inject('routingStore')
@@ -108,7 +135,7 @@ class Notes extends Component {
     let _key = pathname.match('root|BN[-a-zA-Z0-9]+')
     _key = _key?_key[0]:'root'
     const data = noteStore.json
-    if (isEmpty(data)) return null;
+    if (isEmpty(data)) return <Loading/>;
 
     //childs
     const childKeys = data[_key].children

@@ -1,4 +1,4 @@
-export function fetchAllFromRef(limit=10, ref){
+export function fetchAllFromRef(limit=10, ref, tapFn=({length})=>{}){
   let nodes = {}
   return fetch(ref, 0)
 
@@ -26,6 +26,7 @@ export function fetchAllFromRef(limit=10, ref){
     })
     .then(val=>{
       nodes = Object.assign(nodes, val)
+      tapFn({length: Object.keys(nodes).length})
 
       if (Object.keys(val).length === limit){
         console.log('fetch once', val)

@@ -1,4 +1,4 @@
-import {observable, computed, toJS} from 'mobx';
+import {observable, computed, toJS, action} from 'mobx';
 import {authStore} from './store';
 import  {fetchAllFromRef} from '../utils/firebase'
 import { getUniqueId } from "../utils/node2"
@@ -8,10 +8,15 @@ const { map }  =  observable;
 
 
 const NOTES_REF = 'flats'
+const STAT_REF = 'STAT'
 
 class notes{
   @observable notes = map({});
   @observable cutNode = null;
+
+  // for stat
+  @observable currentFetchNumbers = 0;
+  @observable totalNodeNumbers= 0;
 
   @computed get json() {
     return toJS(this.notes)
@@ -19,21 +24,54 @@ class notes{
 
   fetchAllPomodarios(){
     console.log('fetchAllPomodarios');
-    fetchAllFromRef(100, authStore.userRef.child(NOTES_REF))
+    Promise.resolve()
+    .then(this.fetchTotalNodeNumbers)
+    .then(()=>{
+      return fetchAllFromRef(100, authStore.userRef.child(NOTES_REF), this.updateCurrentStat)
+    })
     .then(notes=>{
       this.notes.replace(notes)
       return Promise.resolve()
     })
-    .then(this.checkNodes.bind(this))
+    .then(this.checkNodes)
+    .then(this.updateStat)
   }
 
+
+
+  @action.bound
   checkNodes(){
     const notes = toJS(this.notes)
     console.log(notes)
     if(!notes['root'].children){
       this.createChild('root')
     }
+    return Promise.resolve()
   }
+
+  @action.bound
+  fetchTotalNodeNumbers(){
+    authStore.userRef.child(STAT_REF).once('value', snap=>{
+      const stat = snap.val()
+      this.totalNodeNumbers = stat.length
+      return Promise.resolve()
+    })
+  }
+
+  /* caculation total number of node*/
+  @action.bound
+  updateStat(){
+    const notes = toJS(this.notes)
+    const length = Object.keys(notes).length
+    authStore.userRef.child(STAT_REF).set({length: length})
+  }
+
+  @action.bound
+  updateCurrentStat({length}){
+    console.warn('updateStat', length)
+    this.currentFetchNumbers = length
+  }
+
 
   add ({key, value}){
     authStore.userRef.child(NOTES_REF).child(key).set({content: value})

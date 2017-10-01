@@ -5,6 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import { routingStore, vimStore, tooltipStore, authStore, noteStore, uiStore } from './store/store'
 import { Provider } from 'mobx-react';
+import  './utils/debug.js'
+
 
 import { BrowserRouter as Router } from "react-router-dom";
 import createBrowserHistory from 'history/createBrowserHistory';
