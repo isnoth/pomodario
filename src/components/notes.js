@@ -54,14 +54,10 @@ class Loading extends Component{
     console.log('percent is:', percent)
 
     return(
-      <div>
-        <p> {noteStore.currentFetchNumbers}</p>
-        <p> {noteStore.totalNodeNumbers}</p>
 				<div className="progress">
-					<div className="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: percent}}> {percent}
+					<div className="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{width: percent}}>
 					</div>
         </div>
-      </div>
     )
   }
 
@@ -167,4 +163,4 @@ class Notes extends Component {
   }
 };
 
-export {Notes}
+export {Loading, Notes}

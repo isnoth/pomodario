@@ -5,7 +5,7 @@ import { Login } from './components/login'
 import  Nav from './components/nav'
 import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
-import { Notes } from './components/notes'
+import { Notes, Loading } from './components/notes'
 import Vim from './components/vim'
 
 
