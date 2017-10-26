@@ -2,6 +2,7 @@
   "name": "pomodario",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://isnoth.github.io/fn/",
   "dependencies": {
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "bootstrap": "4.0.0-beta",
