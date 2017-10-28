@@ -27,19 +27,19 @@ class App extends Component {
       {/*<Todos todoStore={todoStore}/>*/}
         <Nav/>
 
-				<Route exact path="/" render={()=>(
+				<Route exact path={`${process.env.PUBLIC_URL}/`} render={()=>(
             <Notes/>
         )}/>
 
-				<Route exact path="/pomodario/" render={()=>(
+				<Route exact path={`${process.env.PUBLIC_URL}/pomodario/`} render={()=>(
             <Pomodario />
         )}/>
 
-				<Route exact path="/app/" render={()=>(
+				<Route exact path={`${process.env.PUBLIC_URL}/app`} render={()=>(
             <Todos />
         )}/>
 
-				<Route exact path="/notes/:id" render={({match})=>(
+				<Route exact path={`${process.env.PUBLIC_URL}/notes/:id`} render={({match})=>(
             <Notes match={match}/>
         )}/>
       </div>

@@ -35,6 +35,7 @@ export function fetchAllFromRef(limit=10, ref, tapFn=({length})=>{}){
 
         return fetch(ref, lastKey)
       }else{
+        console.log('fetch done!')
         return Promise.resolve(nodes)
       }
     })

@@ -3,13 +3,13 @@ import { render } from "react-dom";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import { routingStore, vimStore, tooltipStore, authStore, noteStore, uiStore } from './store/store'
+import { routingStore, vimStore, tooltipStore, authStore, noteStore, uiStore, todoStore } from './store/store'
 import { Provider } from 'mobx-react';
 import  './utils/debug.js'
 
 
 import { BrowserRouter as Router } from "react-router-dom";
-import createBrowserHistory from 'history/createBrowserHistory';
+import createBrowserHistory from 'history/createHashHistory';
 import { syncHistoryWithStore } from 'mobx-react-router';
 
 const browserHistory = createBrowserHistory();
@@ -24,6 +24,7 @@ const renderApp = Component => {
       authStore={authStore}
       noteStore={noteStore}
       uiStore={uiStore}
+      todoStore={todoStore}
       >
     <Router history={history}>
       <App />
