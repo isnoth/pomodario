@@ -8,6 +8,17 @@ import { getParent, nodeSibling, nodePrevSibling, nodeGetFirstChild} from "../..
 var classNames = require('classnames');
 
 
+const nodeStyles = [
+  {"background-color": "#b53f45", "color":"#fff", "border-radius":"4px"},
+  {"background-color": "#acba9d", "color":"#fff", "border-radius":"4px"},
+  {"background-color": "#eed19c", "color":"#fff", "border-radius":"4px"},
+  {"background-color": "#efb28c", "color":"#fff", "border-radius":"4px"},
+  {"background-color": "#749db9", "color":"#fff", "border-radius":"4px"},
+  {"background-color": "#fff", "color":"#000", "border-radius":"4px"},
+  {'text-decoration':'line-through', "color":"rgb(186, 186, 186)"},
+]
+
+
 function setEndOfContenteditable(contentEditableElement)
 {
     var range,selection;
@@ -86,6 +97,13 @@ class TreeContentVim extends Component {
     const {_key} = this.props
     const node = noteStore.json[_key]
     noteStore.update(_key, Object.assign({}, node, {fold: !node.fold}));
+  }
+
+  updateStyle(style){
+    console.log('updateStyle');
+    const {_key} = this.props
+    const node = noteStore.json[_key]
+    noteStore.update(_key, Object.assign({}, node, {style: style}));
   }
 
   bindKeys(){
@@ -195,6 +213,35 @@ class TreeContentVim extends Component {
           { keys: {ctrlKey: true, key: ']', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
             this.jump();
+          }},
+
+          { keys: {ctrlKey: true, shiftKey: true, key: '!', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[0])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '@', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[1])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '#', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[2])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '$', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[3])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '%', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[4])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '^', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[5])
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '&', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateStyle(nodeStyles[6])
           }},
 
 
