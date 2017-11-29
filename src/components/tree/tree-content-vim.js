@@ -106,6 +106,14 @@ class TreeContentVim extends Component {
     noteStore.update(_key, Object.assign({}, node, {style: style}));
   }
 
+  updateIcon(iconName){
+    console.log('updateIcon');
+    const {_key} = this.props
+    const node = noteStore.json[_key]
+    noteStore.update(_key, Object.assign({}, node, {icon: iconName}));
+  }
+
+
   bindKeys(){
     const {_key} = this.props
     if (this._input){
@@ -243,6 +251,18 @@ class TreeContentVim extends Component {
             //if (this.state.edit) return;
             this.updateStyle(nodeStyles[6])
           }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '*', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('fa fa-lg fa-angle-double-down')
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: '(', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('fa fa-lg fa-angle-double-up')
+          }},
+          { keys: {ctrlKey: true, shiftKey: true, key: ')', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('')
+          }},
 
 
         ]
@@ -273,6 +293,7 @@ class TreeContentVim extends Component {
     const data = noteStore.json
     const content=data[_key].content
     const style = data[_key].style
+    const icon = data[_key].icon
 
     return (
       <div 
@@ -283,10 +304,12 @@ class TreeContentVim extends Component {
         ref={(c) => this._input = c}
       >
         <div 
-          className={classNames({'inedit':this.state.edit, 'noedit':!this.state.edit})}
+          className={classNames({'inedit':this.state.edit, 'noedit':!this.state.edit, })}
           onClick={this.click.bind(this)}
           style={style}
           >
+          <i className={classNames({[`${icon}`]:icon})}
+            ></i>
           {content}
         </div>
         { this.state.edit?
