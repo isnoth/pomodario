@@ -149,13 +149,17 @@ class Notes extends Component {
     layouts = layouts?layouts: initLayout(noteStore.json, _key);
     checkLayout(layouts);
 
+
+    //disable isDraggable when mobile
+    const isMobile = document.body.clientWidth < 1100
+
     return isEmpty(data)?null:(
       <ResponsiveReactGridLayout
         layouts={layouts}
         breakpoints={{lg: 1200,  xs: 480}}
         cols={{lg: 48, xs: 1 }}
         rowHeight={30} 
-        isDraggable={true}
+        isDraggable={isMobile?false:true}
         isResizable={true}
         onLayoutChange={(current, all)=>{this.layoutChange(_key, current, all)}} >
         {children}
