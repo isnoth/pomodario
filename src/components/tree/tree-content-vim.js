@@ -45,10 +45,12 @@ class TreeContentVim extends Component {
     super(props)
     this.state = {
       edit: false,
-      keycodes:""
+      keycodes:"",
+      showTooltip: false,
     }
     this.jump = this._jump.bind(this)
     this.goback = this._goback.bind(this)
+    this.timer = null
   }
 
   componentDidMount(){
@@ -90,6 +92,20 @@ class TreeContentVim extends Component {
     if( this.state.edit === false) {
       this.toggleEditState();
     }
+  }
+
+  touchStart = ()=>{
+    console.log('touchStart')
+    this.timer = setTimeout(()=>{
+      this.setState({showTooltip: true})
+      this.timer = null;
+    }, 1000)
+  }
+
+  touchEnd = ()=>{
+    console.log('touchEnd')
+    if (this.timer)
+      clearTimeout(this.timer)
   }
 
   updateFold(){
@@ -299,6 +315,8 @@ class TreeContentVim extends Component {
       <div 
         id={_key}
         onFocus={this.focus.bind(this)}
+        onTouchStart={this.touchStart}
+        onTouchEnd={this.touchEnd}
         tabIndex={1}
         className="tree-node__body"
         ref={(c) => this._input = c}
@@ -321,6 +339,14 @@ class TreeContentVim extends Component {
             ref={(c) => this._input2 = c}
           />:null
         }
+        {this.state.showTooltip?
+          <div className='stooltip'> 
+            <button onClick={()=>{noteStore.createChild(_key)}}>test1</button>
+            <button onClick={()=>{noteStore.createNebour(_key)}}>test2</button>
+            <button onClick={()=>{this.setState({showTooltip: false})}}>x</button>
+          </div>:null
+        }
+
       </div>
     )
   }
