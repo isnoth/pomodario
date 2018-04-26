@@ -341,8 +341,10 @@ class TreeContentVim extends Component {
         }
         {this.state.showTooltip?
           <div className='stooltip'> 
-            <button onClick={()=>{noteStore.createChild(_key)}}>test1</button>
-            <button onClick={()=>{noteStore.createNebour(_key)}}>test2</button>
+            <button onClick={()=>{noteStore.createChild(_key); this.setState({showTooltip: false})}}>child</button>
+            <button onClick={()=>{noteStore.createNebour(_key); this.setState({showTooltip: false})}}>nebour</button>
+            <button onClick={()=>{noteStore.cutNode = _key; this.setState({showTooltip: false})}}>cut</button>
+            <button onClick={()=>{noteStore.cutNode && noteStore.nodePaste(_key);this.setState({showTooltip: false})}}>paste</button>
             <button onClick={()=>{this.setState({showTooltip: false})}}>x</button>
           </div>:null
         }
