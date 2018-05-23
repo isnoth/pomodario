@@ -269,18 +269,20 @@ class TreeContentVim extends Component {
           }},
           { keys: {ctrlKey: true, shiftKey: true, key: '*', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
-            this.updateIcon('fa fa-lg fa-angle-double-down')
+            this.updateIcon('fa fa-lg fa-arrow-circle-down')
           }},
           { keys: {ctrlKey: true, shiftKey: true, key: '(', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
-            this.updateIcon('fa fa-lg fa-angle-double-up')
+            this.updateIcon('fa fa-lg fa-arrow-circle-up')
           }},
           { keys: {ctrlKey: true, shiftKey: true, key: ')', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
             this.updateIcon('')
           }},
-
-
+          { keys: {ctrlKey: true, shiftKey: true, key: 'F12', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('fa fa-lg fa-minus-square')
+          }},
         ]
       });
     }

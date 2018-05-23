@@ -6,6 +6,13 @@ div{
   box-sizing: border-box;
 }
 
+
+@bg-color2: #b53f45;
+@bg-color3: #acba9d;
+@bg-color4: #eed19c;
+@bg-color5: #efb28c;
+@bg-color6: #749db9;
+
 .bread-crumbs{
     margin-left: 18px;
     display: block;
@@ -198,7 +205,7 @@ div{
   
   &.node-icon-2{
     color:#fff;
-    background-color:#b53f45;
+    background-color: @bg-color2;
     border-radius: 4px;
   }
   
@@ -268,7 +275,7 @@ div{
     display: inline-block;
     white-space: pre-wrap;
     /*width: 100%;*/
-    min-width: calc(~"100% - 20px");
+    min-width: calc(~"100% - 25px");
     min-height: 21px;
   }
   .inedit{
@@ -285,12 +292,16 @@ div{
 /*icons*/
 .fa{
   &.fa-{
-    &angle-double-down{
-      color: green;
+    &arrow-circle-down{
+      color: @bg-color3;
     }
 
-    &angle-double-up{
-      color: red;
+    &arrow-circle-up{
+      color: @bg-color5;
+    }
+
+    &minus-square{
+      color: @bg-color2;
     }
   }
 }
