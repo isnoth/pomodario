@@ -310,9 +310,10 @@ class TreeContentVim extends Component {
     const content=data[_key].content
     const style = data[_key].style
     const icon = data[_key].icon
+    const showIcon = data[_key].icon && data[_key].icon.trim()!==''
 
     return (
-      <div 
+      <div
         id={_key}
         onFocus={this.focus.bind(this)}
         onTouchStart={this.touchStart}
@@ -321,19 +322,20 @@ class TreeContentVim extends Component {
         className="tree-node__body"
         ref={(c) => this._input = c}
       >
-        <div 
+
+        <i className={classNames({[`${icon}`]:showIcon})} style={{marginRight: showIcon?'5px': '0px'}}/>
+        <div
           className={classNames({'inedit':this.state.edit, 'noedit':!this.state.edit, })}
           onClick={this.click.bind(this)}
           style={style}
           >
-          <i className={classNames({[`${icon}`]:icon})}
-            ></i>
           {content}
         </div>
         { this.state.edit?
-          <div 
+          <div
             onBlur={this.blur.bind(this)}
-            tabIndex={1} 
+            style={{display: 'inline-block', minWidth: '90%'}}
+            tabIndex={1}
             contentEditable={true}
             defaultValue={content}
             ref={(c) => this._input2 = c}

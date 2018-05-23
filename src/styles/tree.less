@@ -265,9 +265,10 @@ div{
   //min-height: 20px;
   padding: 2px;
   .noedit{
-    display: block;
+    display: inline-block;
     white-space: pre-wrap;
-    width: 100%;
+    /*width: 100%;*/
+    min-width: calc(~"100% - 20px");
     min-height: 21px;
   }
   .inedit{
