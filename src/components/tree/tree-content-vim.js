@@ -279,6 +279,10 @@ class TreeContentVim extends Component {
             //if (this.state.edit) return;
             this.updateIcon('')
           }},
+          { keys: {ctrlKey: true, shiftKey: true, key: 'F11', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('fa fa-lg fa-envelope')
+          }},
           { keys: {ctrlKey: true, shiftKey: true, key: 'F12', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
             this.updateIcon('fa fa-lg fa-minus-square')
@@ -312,7 +316,7 @@ class TreeContentVim extends Component {
     const content=data[_key].content
     const style = data[_key].style
     const icon = data[_key].icon
-    const showIcon = data[_key].icon && data[_key].icon.trim()!==''
+    const showIcon = data[_key].icon && data[_key].icon.toString().trim()!==''
 
     return (
       <div
