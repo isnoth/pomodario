@@ -37,6 +37,7 @@ class BreadCrumb extends Component{
 }
 
 
+@inject('routingStore')
 @inject('uiStore')
 @inject('authStore')
 @observer
@@ -76,6 +77,7 @@ class NavBar extends Component{
       <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
         <Dropdown title={authStore.authState&&authStore.authState.email}>
           <DropdownItem title="Logout" link='#' click={authStore.logout}/>
+          <DropdownItem title="settings" link='#' click={()=>{ routingStore.push('/settings/')}}/>
         </Dropdown>
       </ul>
     )

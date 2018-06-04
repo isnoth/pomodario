@@ -8,7 +8,7 @@ import { Provider } from 'mobx-react';
 import  './utils/debug.js'
 
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 import createBrowserHistory from 'history/createHashHistory';
 import { syncHistoryWithStore } from 'mobx-react-router';
 
@@ -26,9 +26,7 @@ const renderApp = Component => {
       uiStore={uiStore}
       todoStore={todoStore}
       >
-    <Router history={history}>
-      <App />
-    </Router>
+       <App/>
     </Provider>,
 		document.getElementById("root")
 	);

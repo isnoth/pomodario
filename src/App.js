@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {observer, inject} from 'mobx-react';
 import './App.css';
 
 import { Login } from './components/login'
@@ -7,43 +8,27 @@ import { Pomodario } from './components/pomodario'
 import { Todos } from './components/todos'
 import { Notes, Loading } from './components/notes'
 import Vim from './components/vim'
+import Settings from './components/settings'
 
-
-import { observer } from 'mobx-react';
-
+import { HashRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-
-@observer
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
+class App extends Component{
+  render(){
+    return <Router>
+    <div className="App">
       <Vim/>
       <Login/>
+      <Nav/>
 
-      {/*<Todos todoStore={todoStore}/>*/}
-        <Nav/>
-
-				<Route exact path={`${process.env.PUBLIC_URL}/`} render={()=>(
-            <Notes/>
-        )}/>
-
-				<Route exact path={`${process.env.PUBLIC_URL}/pomodario/`} render={()=>(
-            <Pomodario />
-        )}/>
-
-				<Route exact path={`${process.env.PUBLIC_URL}/app`} render={()=>(
-            <Todos />
-        )}/>
-
-				<Route exact path={`${process.env.PUBLIC_URL}/notes/:id`} render={({match})=>(
-            <Notes match={match}/>
-        )}/>
-      </div>
-    );
+      <Route exact path={'/'} component={Notes}/>
+      <Route path={'/notes/'} component={Notes}/>
+      <Route exact path={'/settings/'} component={Settings}/>
+      <Route exact path={`/pomodario/`} component={Pomodario}/>
+    </div>
+  </Router>
   }
 }
 

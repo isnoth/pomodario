@@ -279,6 +279,10 @@ class TreeContentVim extends Component {
             //if (this.state.edit) return;
             this.updateIcon('')
           }},
+          { keys: {ctrlKey: true, shiftKey: true, key: 'F10', preventDefault:false}, fn: ()=>{
+            //if (this.state.edit) return;
+            this.updateIcon('fas fa-lg fa-exclamation-triangle')
+          }},
           { keys: {ctrlKey: true, shiftKey: true, key: 'F11', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
             this.updateIcon('fa fa-lg fa-envelope')
