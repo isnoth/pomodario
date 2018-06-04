@@ -1,7 +1,8 @@
 import {observer, inject} from 'mobx-react';
 import React, { Component } from 'react';
-import {saveData} from '../utils/file'
+import dayjs from 'dayjs'
 
+import {saveData} from '../utils/file'
 
 @inject('noteStore')
 @observer
@@ -9,7 +10,7 @@ class Settings extends Component {
   getNotes(){
     const {noteStore} = this.props
     const notes = noteStore.json
-    const fileName = `bn5x_${new Date().getMonth()+1}_${new Date().getDate()}.json`
+    const fileName = `bn5x_${dayjs().format('YYYYMMDD')}.json`
     saveData(notes, fileName)
   }
 
