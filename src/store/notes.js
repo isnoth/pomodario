@@ -22,6 +22,17 @@ class notes{
     return toJS(this.notes)
   }
 
+  filter(text) {
+    const notesList = [...this.notes.values()]
+    const filteredNotes = notesList.filter(note=>textMatch(text, note))
+    console.log('filtered notes:', notesList, filteredNotes)
+    return filteredNotes
+
+    function textMatch(text, note){
+      return note && !!~note.content.indexOf(text)
+    }
+  }
+
   fetchAllPomodarios(){
     console.log('fetchAllPomodarios');
     Promise.resolve()

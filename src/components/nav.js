@@ -78,6 +78,7 @@ class NavBar extends Component{
         <Dropdown title={authStore.authState&&authStore.authState.email}>
           <DropdownItem title="Logout" link='#' click={authStore.logout}/>
           <DropdownItem title="settings" link='#' click={()=>{ routingStore.push('/settings/')}}/>
+          <DropdownItem title="search" link='#' click={()=>{ routingStore.push('/search/')}}/>
         </Dropdown>
       </ul>
     )

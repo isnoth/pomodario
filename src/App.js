@@ -9,6 +9,7 @@ import { Todos } from './components/todos'
 import { Notes, Loading } from './components/notes'
 import Vim from './components/vim'
 import Settings from './components/settings'
+import Search from './components/search'
 
 import { HashRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -27,6 +28,7 @@ class App extends Component{
       <Route path={'/notes/'} component={Notes}/>
       <Route exact path={'/settings/'} component={Settings}/>
       <Route exact path={`/pomodario/`} component={Pomodario}/>
+      <Route exact path={`/search/`} component={Search}/>
     </div>
   </Router>
   }
