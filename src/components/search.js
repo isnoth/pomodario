@@ -9,7 +9,6 @@ function filterPaging(notes, pageIndex, numberPerPage=NUMBER_PER_PAGE){
 }
 
 @inject('noteStore')
-@inject('routingStore')
 @observer
 class Search extends Component {
   state = {
@@ -27,11 +26,6 @@ class Search extends Component {
     this.setState({searchInput: evt.target.value})
   }
 
-  _jump = (_key)=>{
-    const { push } = this.props.routingStore;
-    push(`/notes/${_key}`)
-  }
-
   render(){
     const {noteStore} = this.props
     const notes = noteStore.filter(this.state.searchInput)
@@ -43,9 +37,7 @@ class Search extends Component {
         {this.state.searchInput}
       </div>
       <div>
-        {notes.map(i=>(
-          <li><button onClick={()=>this._jump(i.key)}>-></button>{i.content}</li>
-        ))}
+        {notes.map(i=>(<li>{i.content}</li>))}
       </div>
       <button>prev</button>
       <span> {notes.length/NUMBER_PER_PAGE} </span>
