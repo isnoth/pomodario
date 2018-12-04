@@ -22,14 +22,18 @@ class notes{
     return toJS(this.notes)
   }
 
+  @computed get list() {
+    return [...this.notes.keys()].map((key)=>Object.assign({}, {key: key}, this.notes.get(key)))
+  }
+
   filter(text) {
-    const notesList = [...this.notes.values()]
+    const notesList = this.list
     const filteredNotes = notesList.filter(note=>textMatch(text, note))
     console.log('filtered notes:', notesList, filteredNotes)
     return filteredNotes
 
     function textMatch(text, note){
-      return note && !!~note.content.indexOf(text)
+      return note && note.content && !!~note.content.indexOf(text)
     }
   }
 

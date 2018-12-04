@@ -37,6 +37,7 @@ function checkLayout (layouts){
       })
     }
   }
+  return layouts
 }
 
 var toPercent = function(val){
@@ -127,27 +128,36 @@ class Notes extends Component {
 
   render() {
     const {noteStore, routingStore} = this.props
-    const pathname = routingStore.location.pathname
-    let _key = pathname.match('root|BN[-a-zA-Z0-9]+')
-    _key = _key?_key[0]:'root'
+
     const data = noteStore.json
     if (isEmpty(data)) return <Loading/>;
 
-    //childs
-    const childKeys = data[_key].children
-    let children = null
-    if (childKeys){
-      children = childKeys.map(childKey=>(
-        <div key={childKey}>
-          <Tree _key={childKey} key={childKey} />
-        </div>
-      ))
+    function getNoteId(){
+      const pathname = routingStore.location.pathname
+      let _key = pathname.match('root|BN[-a-zA-Z0-9]+')
+      _key = _key?_key[0]:'root'
+      return _key
     }
 
-    //layous
-    let layouts = data[_key].layouts
-    layouts = layouts?layouts: initLayout(noteStore.json, _key);
-    checkLayout(layouts);
+
+    //childs
+    function getChildren(_key){
+      const childKeys = data[_key].children
+      let children = null
+      return childKeys?  childKeys.map(childKey=>(
+          <div key={childKey}>
+            <Tree _key={childKey} key={childKey} />
+        </div>
+      )): null
+    }
+
+    function getLayout(_key){
+      let layouts = data[_key].layouts
+      layouts = layouts?layouts: initLayout(noteStore.json, _key);
+      return checkLayout(layouts);
+    }
+
+    const _key = getNoteId()
 
 
     //disable isDraggable when mobile
@@ -155,14 +165,14 @@ class Notes extends Component {
 
     return isEmpty(data)?null:(
       <ResponsiveReactGridLayout
-        layouts={layouts}
+        layouts={getLayout(_key)}
         breakpoints={{lg: 1200,  xs: 480}}
         cols={{lg: 48, xs: 1 }}
         rowHeight={30} 
         isDraggable={isMobile?false:true}
         isResizable={true}
         onLayoutChange={(current, all)=>{this.layoutChange(_key, current, all)}} >
-        {children}
+        {getChildren(_key)}
     </ResponsiveReactGridLayout>)
   }
 };
