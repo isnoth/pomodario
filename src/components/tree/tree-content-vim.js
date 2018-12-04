@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { noteStore } from '../../store/store'
 import { bindKeys } from "../../utils/keys"
+import './tree-content-vim.css'
 
 import { getParent, nodeSibling, nodePrevSibling, nodeGetFirstChild} from "../../utils/node2"
 
@@ -353,11 +354,23 @@ class TreeContentVim extends Component {
         }
         {this.state.showTooltip?
           <div className='stooltip'> 
-            <button onClick={()=>{noteStore.createChild(_key); this.setState({showTooltip: false})}}>child</button>
-            <button onClick={()=>{noteStore.createNebour(_key); this.setState({showTooltip: false})}}>nebour</button>
-            <button onClick={()=>{noteStore.cutNode = _key; this.setState({showTooltip: false})}}>cut</button>
-            <button onClick={()=>{noteStore.cutNode && noteStore.nodePaste(_key);this.setState({showTooltip: false})}}>paste</button>
-            <button onClick={()=>{this.setState({showTooltip: false})}}>x</button>
+            <div onClick={()=>{noteStore.createChild(_key); this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fas fa-long-arrow-alt-down'> </i></div>
+
+            <div onClick={()=>{noteStore.createNebour(_key); this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fas fa-level-down-alt'> </i></div>
+
+            <div onClick={()=>{noteStore.cutNode = _key; this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fa fa-cut'> </i></div>
+
+            <div onClick={()=>{noteStore.cutNode && noteStore.nodePaste(_key);this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fa fa-paste'> </i></div>
+
+            <div onClick={()=>{noteStore.delete && noteStore.delete(_key);this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fa fa-trash'> </i></div>
+
+            <div onClick={()=>{this.setState({showTooltip: false})}}
+                className='btn_area close-tooltip'><i className='fas fa-times-circle'> </i></div>
           </div>:null
         }
 

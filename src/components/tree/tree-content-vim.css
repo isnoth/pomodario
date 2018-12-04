@@ -1,0 +1,15 @@
+.stooltip .btn--delete{
+    margin-left: 10px;
+}
+
+.stooltip{
+    display: flex;
+}
+.stooltip .btn_area{
+    border-bottom: solid #ccc 2px;
+    margin: 5px;
+}
+
+.stooltip .close-tooltip{
+    margin-left: 40px;
+}
