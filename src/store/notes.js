@@ -29,7 +29,7 @@ class notes{
     return filteredNotes
 
     function textMatch(text, note){
-      return note && !!~note.content.indexOf(text)
+      return note && note.content && !!~note.content.indexOf(text)
     }
   }
 
