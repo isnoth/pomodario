@@ -353,11 +353,12 @@ class TreeContentVim extends Component {
           />:null
         }
         {this.state.showTooltip?
-          <div className='stooltip'> 
-            <div onClick={()=>{noteStore.createChild(_key); this.setState({showTooltip: false})}}
-                className='btn_area'><i className='fas fa-long-arrow-alt-down'> </i></div>
+          <div className='stooltip'>
 
             <div onClick={()=>{noteStore.createNebour(_key); this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fas fa-long-arrow-alt-down'> </i></div>
+
+            <div onClick={()=>{noteStore.createChild(_key); this.setState({showTooltip: false})}}
                 className='btn_area'><i className='fas fa-level-down-alt'> </i></div>
 
             <div onClick={()=>{noteStore.cutNode = _key; this.setState({showTooltip: false})}}
@@ -368,6 +369,12 @@ class TreeContentVim extends Component {
 
             <div onClick={()=>{noteStore.delete && noteStore.delete(_key);this.setState({showTooltip: false})}}
                 className='btn_area'><i className='fa fa-trash'> </i></div>
+
+            <div onClick={()=>{this.updateStyle(nodeStyles[5]); this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fa fa-amilia'> </i></div>
+
+            <div onClick={()=>{this.updateStyle(nodeStyles[6]); this.setState({showTooltip: false})}}
+                className='btn_area'><i className='fas fa-strikethrough'> </i></div>
 
             <div onClick={()=>{this.setState({showTooltip: false})}}
                 className='btn_area close-tooltip'><i className='fas fa-times-circle'> </i></div>

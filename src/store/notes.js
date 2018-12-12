@@ -33,6 +33,11 @@ class notes{
     }
   }
 
+  /*todo*/
+  //filterWithCondition() {
+  //    Object.keys(window.noteStore.json).map(key=>window.noteStore.json[key]).filter(i=>i.content===undefined)
+  //}
+
   fetchAllPomodarios(){
     console.log('fetchAllPomodarios');
     Promise.resolve()
