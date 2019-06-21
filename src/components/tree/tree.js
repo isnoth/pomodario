@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import {observer, inject} from 'mobx-react';
 import { noteStore, settingStore } from '../../store/store'
 
@@ -39,8 +40,8 @@ class Bullet extends Component {
 
     return (<div className="node-btn-wrap" 
       onMouseEnter ={this.setHot}>
-      {data[_key].children?<Glyphicon className="fold" glyph={data[_key].fold?"plus":"minus"} onClick={this.updateFold.bind(this, !data[_key].fold)}/>:null}
-      <div className={data[_key].md?"dot-md":"dot"} onClick={this.click}></div>
+      {/*data[_key].children?<Glyphicon className="fold" glyph={data[_key].fold?"plus":"minus"} onClick={this.updateFold.bind(this, !data[_key].fold)}/>:null*/}
+      <div className={classNames({'dot': true, 'dot-fav': data[_key].bookmark, 'dot-md': data[_key].md })} onClick={this.click}></div>
       {data[_key].fold?<div className="dot-fold" ></div>:null}
       {this.state.hot?<div 
         draggable='true' 
