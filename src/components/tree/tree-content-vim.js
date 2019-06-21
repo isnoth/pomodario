@@ -129,6 +129,13 @@ class TreeContentVim extends Component {
     noteStore.update(_key, Object.assign({}, node, {icon: iconName}));
   }
 
+  updateContent(key, value){
+    console.log('updateContent');
+    const {_key} = this.props
+    const node = noteStore.json[_key]
+    noteStore.update(_key, Object.assign({}, node, {[key]: value}));
+  }
+
 
   bindKeys(){
     const {_key} = this.props
@@ -290,6 +297,12 @@ class TreeContentVim extends Component {
           { keys: {ctrlKey: true, shiftKey: true, key: 'F12', preventDefault:false}, fn: ()=>{
             //if (this.state.edit) return;
             this.updateIcon('fa fa-lg fa-minus-square')
+          }},
+          // mark function
+          { keys: {ctrlKey: false, shiftKey: false, key: 'm', preventDefault:false}, fn: ()=>{
+            if (this.state.edit) return;
+            const bookmark = noteStore.json[_key].bookmark
+            this.updateContent('bookmark', !bookmark)
           }},
         ]
       });

@@ -22,10 +22,29 @@ class notes{
     return toJS(this.notes)
   }
 
+  @computed get list() {
+      const notes = toJS(this.notes)
+      return Object.keys(notes)
+      .map(key => ({key: key, value: notes[key]}))
+  }
+
+  @computed get favNotes() {
+    //  const notes = toJS(this.notes);
+    //return Object.keys(notes)
+    //.filter(key => notes[key].bookmark)
+    //.map(key => notes[key])
+    return this.list
+    .filter(obj => obj.value && obj.value.bookmark)
+    //.filter(item => item.bookmark)
+  }
+
+  @action.bound
   filter(text) {
-    const notesList = [...this.notes.values()]
-    const filteredNotes = notesList.filter(note=>textMatch(text, note))
-    console.log('filtered notes:', notesList, filteredNotes)
+    //  const notes = toJS(this.notes)
+    //const notesList = Object.keys(notes).map(key => ({key: key, vlaue: notes[key]}))
+    //const filteredNotes = notesList.filter(note=>textMatch(text, note.value))
+    const filteredNotes = this.list.filter(note=>textMatch(text, note.value))
+    console.log('filtered notes:', filteredNotes)
     return filteredNotes
 
     function textMatch(text, note){

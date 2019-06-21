@@ -1,6 +1,7 @@
 import {observer, inject} from 'mobx-react';
 import React, { Component } from 'react';
 import dayjs from 'dayjs'
+import NoteItemLink from './note-item-link'
 
 const NUMBER_PER_PAGE = 10
 
@@ -37,12 +38,14 @@ class Search extends Component {
         {this.state.searchInput}
       </div>
       <div>
-        {notes.map(i=>(<li>{i.content}</li>))}
+        { notes.map(i =>(<li>
+                <NoteItemLink _key={i.key} content={i.value.content}/>
+            </li>))
+        }
       </div>
       <button>prev</button>
       <span> {notes.length/NUMBER_PER_PAGE} </span>
       <button>next</button>
-
 
     </div>
   }

@@ -6,12 +6,12 @@ import { noteStore } from '../store/store'
 import {Responsive, WidthProvider} from 'react-grid-layout';
 
 import { Tree } from './tree/tree'
+import {withSideBar} from './side-bar'
 import { initLayout } from "../utils/node2"
 import { bindKeys } from "../utils/keys"
 import { isEmpty } from '../utils/common'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-//const isEmpty = (obj)=>(!!(Object.keys(obj).length===0))
 
 function checkLayout (layouts){
   console.log('checkLayout', layouts);
@@ -167,4 +167,8 @@ class Notes extends Component {
   }
 };
 
-export {Loading, Notes}
+export {
+    Loading,
+}
+
+export const NotesComponent = withSideBar(Notes)
