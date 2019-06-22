@@ -48,9 +48,14 @@ class notes{
     return filteredNotes
 
     function textMatch(text, note){
-      return note && !!~note.content.indexOf(text)
+      return note && note.content && !!~note.content.indexOf(text)
     }
   }
+
+  /*todo*/
+  //filterWithCondition() {
+  //    Object.keys(window.noteStore.json).map(key=>window.noteStore.json[key]).filter(i=>i.content===undefined)
+  //}
 
   fetchAllPomodarios(){
     console.log('fetchAllPomodarios');

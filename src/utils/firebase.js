@@ -28,7 +28,7 @@ export function fetchAllFromRef(limit=10, ref, tapFn=({length})=>{}){
       nodes = Object.assign(nodes, val)
       tapFn({length: Object.keys(nodes).length})
 
-      if (Object.keys(val).length === limit){
+      if (val && Object.keys(val).length === limit){
         console.log('fetch once', val)
         let lastKey = Object.keys(val).reverse()[0]
         console.log('lastKey:', lastKey)
