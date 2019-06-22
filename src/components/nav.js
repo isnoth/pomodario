@@ -75,10 +75,14 @@ class NavBar extends Component{
 
     const authSection = (
       <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
+        <li className="nav-item">
+            <a className="nav-link active" onClick={uiStore.toggleSideBar}><i className="fas fa-star"></i>star</a>
+        </li>
         <Dropdown title={authStore.authState&&authStore.authState.email}>
           <DropdownItem title="Logout" link='#' click={authStore.logout}/>
           <DropdownItem title="settings" link='#' click={()=>{ routingStore.push('/settings/')}}/>
           <DropdownItem title="search" link='#' click={()=>{ routingStore.push('/search/')}}/>
+          <DropdownItem title="toggle fav" link='#' click={uiStore.toggleSideBar}/>
         </Dropdown>
       </ul>
     )
