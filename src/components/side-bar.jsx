@@ -7,26 +7,19 @@ import { isEmpty } from '../utils/common'
 import NoteItemLink from './note-item-link'
 
 @inject('noteStore')
+@inject('uiStore')
 @observer
 class SideBar extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            expand: false,
-        }
-    }
-
-    toggle = () => {
-        this.setState({expand: !this.state.expand})
     }
 
     render () {
-        const {noteStore} = this.props
+        const {noteStore, uiStore} = this.props
         if (isEmpty(noteStore.json)) return null;
         console.log(noteStore.json)
         //const {currentFetchNumbers, totalNodeNumbers} = noteStore
-        return <div className={classNames({'sidebar': true, 'sidebar-expand': this.state.expand})}>  
-            <button className='btn btn-sm' onClick={this.toggle}> x </button>
+        return <div className={classNames({'sidebar': true, 'sidebar-expand': uiStore.showSideBar})}>
             {noteStore.favNotes.map(note => (
                 <p><NoteItemLink _key={note.key} content={note.value.content}/></p>
             ))}

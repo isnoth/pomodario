@@ -2,6 +2,7 @@ import {observable, action} from 'mobx';
 
 class ui{
   @observable showLoginModal = false;
+  @observable showSideBar = false;
 
   @action.bound
   openLoginModal(){
@@ -11,6 +12,11 @@ class ui{
   @action.bound
   closeLoginModal(){
     this.showLoginModal = false
+  }
+
+  @action.bound
+  toggleSideBar() {
+      this.showSideBar = !this.showSideBar
   }
 }
 

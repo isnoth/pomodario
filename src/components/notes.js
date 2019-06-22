@@ -84,7 +84,16 @@ class Notes extends Component {
   layoutChange(_key, current, all){
     console.log('layoutChange:', _key);
     //const {_key} = this.props
+    const defaultLayout = [{
+        i: 1,
+        x: 1,
+        y: 1,
+        h: 1
+    }]
 
+    all.lg = all.lg || defaultLayout;
+    all.xs = all.xs || defaultLayout;
+    
     const lg = all.lg.map(i=>(
       {
         i:i.i,
