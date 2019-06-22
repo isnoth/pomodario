@@ -1,4 +1,4 @@
-import {observable, computed, toJS} from 'mobx';
+import {observable, computed, toJS, action} from 'mobx';
 import {Fb} from './firebase';
 import {authStore} from './store';
 import  {fetchAllFromRef} from '../utils/firebase'
@@ -34,6 +34,7 @@ class todos{
     return checkOngoingPomodario(items)
   }
 
+  @action.bound
   fetchAllPomodarios(){
     fetchAllFromRef(100, authStore.userRef.child('pomodarios'))
     .then(pomodarios=>{
@@ -41,8 +42,9 @@ class todos{
     })
   }
 
+  @action.bound
   add ({key, value}){
-    authStore.userRef.child('pomodarios').child('key').set({content: value})
+    authStore.userRef.child('pomodarios').child(key).set({content: value})
     this.todos.set(key, {content: value})
   }
 
