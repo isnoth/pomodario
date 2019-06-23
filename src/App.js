@@ -10,6 +10,7 @@ import { NotesComponent, Loading } from './components/notes'
 import Vim from './components/vim'
 import Settings from './components/settings'
 import Search from './components/search'
+import Timeline from './components/timeline/timeline'
 
 import { HashRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -28,6 +29,7 @@ class App extends Component{
       <Route path={'/notes/'} component={NotesComponent}/>
       <Route exact path={'/settings/'} component={Settings}/>
       <Route exact path={`/pomodario/`} component={Pomodario}/>
+      <Route exact path={`/timeline/`} component={Timeline}/>
       <Route exact path={`/search/`} component={Search}/>
     </div>
   </Router>
