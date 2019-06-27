@@ -70,7 +70,7 @@ class notes{
   checkNodes(){
     const notes = toJS(this.notes)
     console.log(notes)
-    if(!notes['root'].children){
+    if(!(notes['root'] && notes['root'].children)){
       this.createChild('root')
     }
     return Promise.resolve()
@@ -80,6 +80,13 @@ class notes{
   fetchTotalNodeNumbers(){
     authStore.userRef.child(STAT_REF).once('value', snap=>{
       const stat = snap.val()
+
+      if (!stat) {
+          authStore.userRef.child(STAT_REF).set({
+              length: 0
+          })
+          return Promise.resolve()
+      }
       this.totalNodeNumbers = stat.length
       return Promise.resolve()
     })
