@@ -8,6 +8,7 @@
     "bootstrap": "4.0.0-beta",
     "chai": "^4.1.1",
     "dayjs": "^1.6.5",
+    "firebase": "^6.2.3",
     "lazy-route": "^1.0.7",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
